@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %} {% block title %}Log in!{% endblock %} {% block
+{% extends 'base.html.twig' %} {% block title %}Connexion{% endblock %} {% block
 body %}
 <form method="post">
   {% if error %}
@@ -7,8 +7,8 @@ body %}
   </div>
   {% endif %} {% if app.user %}
   <div class="mb-3">
-    You are logged in as {{ app.user.email }},
-    <a href="{{ path('app_logout') }}">Logout</a>
+    Vous êtes connecté avec {{ app.user.email }},
+    <a href="{{ path('app_logout') }}">Se déconnecter</a>
   </div>
   {% endif %}
 
@@ -24,7 +24,7 @@ body %}
     required
     autofocus
   />
-  <label for="inputPassword">Password</label>
+  <label for="inputPassword">Mot de passe</label>
   <input
     type="password"
     name="password"
