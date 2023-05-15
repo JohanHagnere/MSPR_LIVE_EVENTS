@@ -23,10 +23,10 @@ class Facility
     private ?Festival $festival_id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $longitude = null;
+    private ?float $longitude = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $latitude = null;
+    private ?float $latitude = null;
 
     public function getId(): ?int
     {
@@ -69,24 +69,24 @@ class Facility
         return $this;
     }
 
-    public function getLongitude(): ?string
+    public function getLongitude(): ?float
     {
         return $this->longitude;
     }
 
-    public function setLongitude(string $longitude): self
+    public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;
 
         return $this;
     }
 
-    public function getLatitude(): ?string
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }
 
-    public function setLatitude(string $latitude): self
+    public function setLatitude(float $latitude): self
     {
         $this->latitude = $latitude;
 
