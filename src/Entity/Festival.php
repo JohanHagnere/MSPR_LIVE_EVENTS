@@ -37,11 +37,15 @@ class Festival
     #[ORM\OneToMany(mappedBy: 'performer_id', targetEntity: Concert::class)]
     private Collection $concerts;
 
+    #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Faq::class)]
+    private Collection $faqs;
+
     public function __construct()
     {
         $this->facilities = new ArrayCollection();
         $this->scenes = new ArrayCollection();
         $this->concerts = new ArrayCollection();
+        $this->faqs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,6 +185,36 @@ class Festival
             // set the owning side to null (unless already changed)
             if ($concert->getPerformerId() === $this) {
                 $concert->setPerformerId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Faq>
+     */
+    public function getFaqs(): Collection
+    {
+        return $this->faqs;
+    }
+
+    public function addFaq(Faq $faq): self
+    {
+        if (!$this->faqs->contains($faq)) {
+            $this->faqs->add($faq);
+            $faq->setFestivalId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFaq(Faq $faq): self
+    {
+        if ($this->faqs->removeElement($faq)) {
+            // set the owning side to null (unless already changed)
+            if ($faq->getFestivalId() === $this) {
+                $faq->setFestivalId(null);
             }
         }
 
