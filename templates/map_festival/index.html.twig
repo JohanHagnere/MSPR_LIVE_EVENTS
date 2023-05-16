@@ -18,7 +18,35 @@
     const map = new google.maps.Map(document.getElementById("map_festival"), {
       zoom: 15,
       center: festival,
+      styles: [
+        {
+          featureType: "poi", // Points of interest
+          stylers: [{ visibility: "off" }] // les masquer
+        },
+        {
+          featureType: "transit", // Transports en commun
+          stylers: [{ visibility: "off" }] // les masquer
+        },
+      ]
+      
     });
+
+  const festivalZone = new google.maps.Rectangle({
+    strokeColor: "grey",
+    strokeOpacity: 0.8,
+    strokeWeight: 3,
+    fillColor: "grey",
+    fillOpacity: 0.15,
+    map,
+    bounds: {
+      north: 44.86747143885584,
+      south: 44.86055159245217,
+      east: -0.5566437769608246,
+      west: -0.5691484354983696,
+    },
+  });
+
+  festivalZone.setMap(map);
 
     // Récupération de la position de l'utilisateur
     if (navigator.geolocation) {
