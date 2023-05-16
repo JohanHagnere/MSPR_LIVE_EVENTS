@@ -113,7 +113,7 @@ class Festival
     {
         if (!$this->facilities->contains($facility)) {
             $this->facilities->add($facility);
-            $facility->setFestivalId($this);
+            $facility->setFestival($this);
         }
 
         return $this;
@@ -123,8 +123,8 @@ class Festival
     {
         if ($this->facilities->removeElement($facility)) {
             // set the owning side to null (unless already changed)
-            if ($facility->getFestivalId() === $this) {
-                $facility->setFestivalId(null);
+            if ($facility->getFestival() === $this) {
+                $facility->setFestival(null);
             }
         }
 
@@ -143,7 +143,7 @@ class Festival
     {
         if (!$this->scenes->contains($scene)) {
             $this->scenes->add($scene);
-            $scene->setFestivalId($this);
+            $scene->setFestival($this);
         }
 
         return $this;
@@ -153,8 +153,8 @@ class Festival
     {
         if ($this->scenes->removeElement($scene)) {
             // set the owning side to null (unless already changed)
-            if ($scene->getFestivalId() === $this) {
-                $scene->setFestivalId(null);
+            if ($scene->getFestival() === $this) {
+                $scene->setFestival(null);
             }
         }
 
@@ -173,7 +173,7 @@ class Festival
     {
         if (!$this->concerts->contains($concert)) {
             $this->concerts->add($concert);
-            $concert->setPerformerId($this);
+            $concert->setPerformer($this);
         }
 
         return $this;
@@ -183,8 +183,8 @@ class Festival
     {
         if ($this->concerts->removeElement($concert)) {
             // set the owning side to null (unless already changed)
-            if ($concert->getPerformerId() === $this) {
-                $concert->setPerformerId(null);
+            if ($concert->getPerformer() === $this) {
+                $concert->setPerformer(null);
             }
         }
 
@@ -203,7 +203,7 @@ class Festival
     {
         if (!$this->faqs->contains($faq)) {
             $this->faqs->add($faq);
-            $faq->setFestivalId($this);
+            $faq->setFestival($this);
         }
 
         return $this;
@@ -213,8 +213,8 @@ class Festival
     {
         if ($this->faqs->removeElement($faq)) {
             // set the owning side to null (unless already changed)
-            if ($faq->getFestivalId() === $this) {
-                $faq->setFestivalId(null);
+            if ($faq->getFestival() === $this) {
+                $faq->setFestival(null);
             }
         }
 

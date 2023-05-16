@@ -26,11 +26,11 @@ class Message
     private ?string $title = null;
 
     #[ORM\OneToMany(mappedBy: 'message', targetEntity: Festival::class)]
-    private Collection $festival_id;
+    private Collection $festival;
 
     public function __construct()
     {
-        $this->festival_id = new ArrayCollection();
+        $this->festival = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,27 +77,27 @@ class Message
     /**
      * @return Collection<int, Festival>
      */
-    public function getFestivalId(): Collection
+    public function getFestival(): Collection
     {
-        return $this->festival_id;
+        return $this->festival;
     }
 
-    public function addFestivalId(Festival $festivalId): self
+    public function addFestival(Festival $festival): self
     {
-        if (!$this->festival_id->contains($festivalId)) {
-            $this->festival_id->add($festivalId);
-            $festivalId->setMessage($this);
+        if (!$this->festival->contains($festival)) {
+            $this->festival->add($festival);
+            $festival->setMessage($this);
         }
 
         return $this;
     }
 
-    public function removeFestivalId(Festival $festivalId): self
+    public function removeFestival(Festival $festival): self
     {
-        if ($this->festival_id->removeElement($festivalId)) {
+        if ($this->festival->removeElement($festival)) {
             // set the owning side to null (unless already changed)
-            if ($festivalId->getMessage() === $this) {
-                $festivalId->setMessage(null);
+            if ($festival->getMessage() === $this) {
+                $festival->setMessage(null);
             }
         }
 
