@@ -49,6 +49,9 @@ class Festival
     #[ORM\Column]
     private array $bounds = [];
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $img = null;
+
     public function __construct()
     {
         $this->facilities = new ArrayCollection();
@@ -262,6 +265,18 @@ class Festival
     public function setBounds(array $bounds): self
     {
         $this->bounds = $bounds;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }
