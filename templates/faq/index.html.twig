@@ -3,13 +3,10 @@
 {% block title %}Hello FaqController!{% endblock %}
 
 
-{% block extra_javascripts %}
-<script defer src="scripts/restaurant.js"></script>
-{% endblock %}
+
 
 {% block extra_stylesheets %}
-{#
-<link rel="stylesheet" href="styles/restaurant-2.css"> {% endblock %} #}
+<link rel="stylesheet" href="css/_faq.css"> 
 {% endblock %}
 
 {% block body %}
@@ -17,26 +14,24 @@
 <main>
 
 
-    <section class="laCarte">
+    <section class="pageFaq">
         <h1>LA F.A.Q. De Nation Sounds Festival</h1>
-        <article class="entree">
+        <br>
+        <article>
 
-            <div class="grid1">
                 {% for faq in faqs %}
-
 
                 <div class="card">
                     <div class="card-header">
                         <div class="icone">
-                            <h3 class="nomPlat">{{ faq.question }}</h3>
+                            <p class="question">{{ faq.question }}</p>
                         </div>
-                        <div class="prix">
+                        <div class="laCroix">
                             <p>+</p>
                         </div>
 
                     </div>
-                    <div class="card-body collapse grid">
-                        <div id="texte">
+                    <div class="card-body collapse">
                             <p>{{ faq.answer }}</p>
                         </div>
 
@@ -44,11 +39,16 @@
                 </div>
 
                 {% endfor %}
-            </div>
+            
         </article>
 
     </section>
 
 </main>
 
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script defer src="{{asset('scripts/faq.js')}}"></script>
 {% endblock %}
