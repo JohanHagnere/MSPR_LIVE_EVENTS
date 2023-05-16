@@ -24,11 +24,8 @@ class MapFestivalController extends AbstractController
                 'longitude' => $marker->getLongitude(),
                 'latitude' => $marker->getLatitude(),
             ];
-
             $newMarkers[] = $markerTable;
         }
-        dump($newMarkers);
-
         return $this->render('map_festival/index.html.twig', [
             'controller_name' => 'MapFestivalController',
             'markers' => json_encode($newMarkers)

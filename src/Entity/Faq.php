@@ -21,7 +21,7 @@ class Faq
     private ?string $answer = null;
 
     #[ORM\ManyToOne(inversedBy: 'faqs')]
-    private ?Festival $festival_id = null;
+    private ?Festival $festival = null;
 
     public function getId(): ?int
     {
@@ -52,14 +52,14 @@ class Faq
         return $this;
     }
 
-    public function getFestivalId(): ?Festival
+    public function getFestival(): ?Festival
     {
-        return $this->festival_id;
+        return $this->festival;
     }
 
-    public function setFestivalId(?Festival $festival_id): self
+    public function setFestival(?Festival $festival): self
     {
-        $this->festival_id = $festival_id;
+        $this->festival = $festival;
 
         return $this;
     }

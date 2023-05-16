@@ -17,17 +17,17 @@ class Concert
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'concerts')]
-    private ?Festival $performer_id = null;
+    private ?Festival $performer = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $concert_date = null;
 
     #[ORM\ManyToMany(targetEntity: Festival::class, inversedBy: 'concerts')]
-    private Collection $scene_id;
+    private Collection $scene;
 
     public function __construct()
     {
-        $this->scene_id = new ArrayCollection();
+        $this->scene = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -35,14 +35,14 @@ class Concert
         return $this->id;
     }
 
-    public function getPerformerId(): ?Festival
+    public function getPerformer(): ?Festival
     {
-        return $this->performer_id;
+        return $this->performer;
     }
 
-    public function setPerformerId(?Festival $performer_id): self
+    public function setPerformer(?Festival $performer): self
     {
-        $this->performer_id = $performer_id;
+        $this->performer = $performer;
 
         return $this;
     }
@@ -62,23 +62,23 @@ class Concert
     /**
      * @return Collection<int, Festival>
      */
-    public function getSceneId(): Collection
+    public function getScene(): Collection
     {
-        return $this->scene_id;
+        return $this->scene;
     }
 
-    public function addSceneId(Festival $sceneId): self
+    public function addScene(Festival $sceneId): self
     {
-        if (!$this->scene_id->contains($sceneId)) {
-            $this->scene_id->add($sceneId);
+        if (!$this->scene->contains($sceneId)) {
+            $this->scene->add($sceneId);
         }
 
         return $this;
     }
 
-    public function removeSceneId(Festival $sceneId): self
+    public function removeScene(Festival $sceneId): self
     {
-        $this->scene_id->removeElement($sceneId);
+        $this->scene->removeElement($sceneId);
 
         return $this;
     }
