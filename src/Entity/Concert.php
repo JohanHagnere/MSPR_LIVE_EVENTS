@@ -67,18 +67,18 @@ class Concert
         return $this->scene;
     }
 
-    public function addScene(Festival $sceneId): self
+    public function addScene(Festival $scene): self
     {
-        if (!$this->scene->contains($sceneId)) {
-            $this->scene->add($sceneId);
+        if (!$this->scene->contains($scene)) {
+            $this->scene->add($scene);
         }
 
         return $this;
     }
 
-    public function removeScene(Festival $sceneId): self
+    public function removeScene(Festival $scene): self
     {
-        $this->scene->removeElement($sceneId);
+        $this->scene->removeElement($scene);
 
         return $this;
     }

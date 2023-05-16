@@ -10,6 +10,7 @@
 
 <script>
   const markers = JSON.parse("{{ markers | e('js') }}");
+  console.log(markers);
 
   function initMap() {
     const festival = { lat: 44.86536609557045, lng: -0.5603782196036978 };
@@ -63,7 +64,6 @@
             map,
             title: "Votre position",
             icon: {
-              url: "{{ asset('icons/user-marker.svg') }}",
               scaledSize: new google.maps.Size(38, 38),
             },
           });
@@ -89,8 +89,14 @@
         title: markers[i].name,
         icon: {
           url: markers[i].img,
-          scaledSize: new google.maps.Size(38, 23),
+          scaledSize: new google.maps.Size(28, 28),
         },
+      });
+      const infoWindow = new google.maps.InfoWindow({
+        content: markers[i].name,
+      });
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker);
       });
     }
   }
