@@ -20,13 +20,16 @@ class Facility
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'facilities')]
-    private ?Festival $festival_id = null;
+    private ?Festival $festival = null;
 
     #[ORM\Column(length: 255)]
     private ?float $longitude = null;
 
     #[ORM\Column(length: 255)]
     private ?float $latitude = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $img = null;
 
     public function getId(): ?int
     {
@@ -57,14 +60,14 @@ class Facility
         return $this;
     }
 
-    public function getFestivalId(): ?Festival
+    public function getFestival(): ?Festival
     {
-        return $this->festival_id;
+        return $this->festival;
     }
 
-    public function setFestivalId(?Festival $festival_id): self
+    public function setFestival(?Festival $festival): self
     {
-        $this->festival_id = $festival_id;
+        $this->festival = $festival;
 
         return $this;
     }
@@ -89,6 +92,18 @@ class Facility
     public function setLatitude(float $latitude): self
     {
         $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }
