@@ -40,6 +40,9 @@ class Festival
     #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Faq::class)]
     private Collection $faqs;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $img = null;
+
     public function __construct()
     {
         $this->facilities = new ArrayCollection();
@@ -217,6 +220,18 @@ class Festival
                 $faq->setFestival(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }
