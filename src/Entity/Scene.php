@@ -23,7 +23,7 @@ class Scene
     private ?string $latitude = null;
 
     #[ORM\ManyToOne(inversedBy: 'scenes')]
-    private ?Festival $festival_id = null;
+    private ?Festival $festival = null;
 
     public function getId(): ?int
     {
@@ -66,14 +66,14 @@ class Scene
         return $this;
     }
 
-    public function getFestivalId(): ?Festival
+    public function getFestival(): ?Festival
     {
-        return $this->festival_id;
+        return $this->festival;
     }
 
-    public function setFestivalId(?Festival $festival_id): self
+    public function setFestival(?Festival $festival): self
     {
-        $this->festival_id = $festival_id;
+        $this->festival = $festival;
 
         return $this;
     }
