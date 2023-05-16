@@ -18,6 +18,17 @@
     const map = new google.maps.Map(document.getElementById("map_festival"), {
       zoom: 15,
       center: festival,
+      styles: [
+        {
+          featureType: "poi", // Points of interest
+          stylers: [{ visibility: "off" }] // les masquer
+        },
+        {
+          featureType: "transit", // Transports en commun
+          stylers: [{ visibility: "off" }] // les masquer
+        },
+      ]
+      
     });
 
     // Récupération de la position de l'utilisateur
