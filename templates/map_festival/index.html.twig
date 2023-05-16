@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %} {% block title %}Carte du festival{% endblock %}
+{% block body %}
+<style>
+  #map_festival {
+    height: 100%;
+    width: 100%;
+  }
+</style>
+<div id="map_festival"></div>
+
+<script>
+  const markers = JSON.parse("{{ markers | e('js') }}");
+  console.log(markers);
+
+  function initMap() {
+    const festival = { lat: 44.86536609557045, lng: -0.5603782196036978 };
+    // Modifier en festival passé en variable depuis controller
+
+    const map = new google.maps.Map(document.getElementById("map_festival"), {
+      zoom: 15,
+      center: festival,
+    });
+    for (var i = 0; i < markers.length; i++) {
+      const marker = new google.maps.Marker({
+        position: { lat: markers[i].latitude, lng: markers[i].longitude },
+        map,
+        title: "My beers",
+        icon: {
+          url: "{{asset('icons/bar.svg')}}",
+          scaledSize: new google.maps.Size(38, 23),
+        },
+      });
+    }
+  }
+
+  window.initMap = initMap;
+</script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfh6E4gClmwOAfjx9hD9WrzmRWNWff1ko&callback=initMap&v=weekly"
+  defer
+></script>
+{% endblock %}
