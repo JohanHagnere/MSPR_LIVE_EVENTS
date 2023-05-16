@@ -40,6 +40,15 @@ class Festival
     #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Faq::class)]
     private Collection $faqs;
 
+    #[ORM\Column]
+    private ?float $longitude = null;
+
+    #[ORM\Column]
+    private ?float $latitude = null;
+
+    #[ORM\Column]
+    private array $bounds = [];
+
     public function __construct()
     {
         $this->facilities = new ArrayCollection();
@@ -217,6 +226,42 @@ class Festival
                 $faq->setFestival(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getBounds(): array
+    {
+        return $this->bounds;
+    }
+
+    public function setBounds(array $bounds): self
+    {
+        $this->bounds = $bounds;
 
         return $this;
     }

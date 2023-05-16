@@ -10,44 +10,45 @@
 
 <script>
   const markers = JSON.parse("{{ markers | e('js') }}");
-  console.log(markers);
+  const festivalLocation = JSON.parse("{{ festivalLocation | e('js') }}");
 
   function initMap() {
-    const festival = { lat: 44.86536609557045, lng: -0.5603782196036978 };
+    const festival = {
+      lat: festivalLocation.latitude,
+      lng: festivalLocation.longitude,
+    };
 
     // Création de la carte
     const map = new google.maps.Map(document.getElementById("map_festival"), {
-      zoom: 15,
+      zoom: 17,
       center: festival,
       styles: [
         {
           featureType: "poi", // Points of interest
-          stylers: [{ visibility: "off" }] // les masquer
+          stylers: [{ visibility: "off" }], // les masquer
         },
         {
           featureType: "transit", // Transports en commun
-          stylers: [{ visibility: "off" }] // les masquer
+          stylers: [{ visibility: "off" }], // les masquer
         },
-      ]
-      
+      ],
+      fullscreenControl: false,
+      mapTypeControl: false,
+      streetViewControl: false,
     });
 
-  const festivalZone = new google.maps.Rectangle({
-    strokeColor: "grey",
-    strokeOpacity: 0.8,
-    strokeWeight: 3,
-    fillColor: "grey",
-    fillOpacity: 0.15,
-    map,
-    bounds: {
-      north: 44.86747143885584,
-      south: 44.86055159245217,
-      east: -0.5566437769608246,
-      west: -0.5691484354983696,
-    },
-  });
+    const festivalBounds = festivalLocation.bounds;
+    const festivalZone = new google.maps.Polygon({
+      strokeColor: "grey",
+      strokeOpacity: 0.8,
+      strokeWeight: 3,
+      fillColor: "grey",
+      fillOpacity: 0.15,
+      map,
+      paths: festivalBounds,
+    });
 
-  festivalZone.setMap(map);
+    festivalZone.setMap(map);
 
     // Récupération de la position de l'utilisateur
     if (navigator.geolocation) {
