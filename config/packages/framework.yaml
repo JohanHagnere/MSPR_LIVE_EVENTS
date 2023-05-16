@@ -23,3 +23,12 @@ when@test:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+
+            framework:
+    # ...
+    templating:
+        engines: ['twig']
+    # ...
+    google_maps:
+        api_key: AIzaSyDfh6E4gClmwOAfjx9hD9WrzmRWNWff1ko
+
