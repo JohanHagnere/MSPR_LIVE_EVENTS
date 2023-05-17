@@ -1,20 +1,74 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello FaqController!{% endblock %}
 
+
+{# <a href = "{{ path('app_faq_index_by_festival',(id = festival-id)) }}">FAQ</a> #}
+
+{% block extra_stylesheets %}
+<link rel="stylesheet" href="{{asset('css/_faq.css')}}"> 
+{% endblock %}
+
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<main>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/paul/EPSI/MSPR_LIVE_EVENTS/src/Controller/FaqController.php'|file_link(0) }}">src/Controller/FaqController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/paul/EPSI/MSPR_LIVE_EVENTS/templates/faq/index.html.twig'|file_link(0) }}">templates/faq/index.html.twig</a></code></li>
-    </ul>
+    <section class="">
+
+        <div class="titreFaq">
+        <h1>LA F.A.Q. De Nation Sounds Festival</h1> 
+    </div>
+    <div class="centrertext">
+    <br>
+    {% if is_granted('ROLE_ADMIN') %} 
+        <a href="{{ path('app_faq_new', {'id': festival.id}) }}">Ajouter une question/réponse</a>
+        
+        {% endif %} 
+    
 </div>
+        <article class="pageFaq">
+
+            {% for faq in faqs %}
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icone">
+                        <p class="question">{{ faq.question }}</p>
+                         {# <a href="{{ path('app_faq_show', {'id': faq.id}) }}">show</a> #}
+                        {% if is_granted('ROLE_ADMIN') %}  
+                 <a href="{{ path('app_faq_edit', {'id': faq.id}) }}">éditer</a>
+                 <a href="{{ path('app_faq_edit', {'id': faq.id}) }}">supprimer</a>
+                  {% endif %}  
+                    </div>
+                    <div class="laCroix">
+                        <p>+</p>
+                    </div>
+
+                </div>
+                <div class="card-body collapse">
+                        <p>{{ faq.answer }}</p>
+                         {# <a href="{{ path('app_faq_show', {'id': faq.id}) }}">show</a> #}
+                    </div>
+
+                </div>
+            </div>
+
+            {% endfor %}
+        
+    </article>
+ 
+     
+
+
+
+    </section>
+
+</main>
+
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script defer src="{{asset('scripts/faq.js')}}"></script>
 {% endblock %}
