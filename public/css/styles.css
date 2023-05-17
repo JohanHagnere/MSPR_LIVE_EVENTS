@@ -36,9 +36,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-main {
-  color: var(--main-color-text);
-}
 /*
     6. Improve media defaults
   */
@@ -98,16 +95,12 @@ p {
 }
 
 /* CSS VARIABLE */
-:root {
+/* :root {
   --light-blue: #99d7ff;
   --main-bg-color: #1b2932;
   --main-color-text: #303030;
-}
+} */
 
-.html {
+/* .html {
   font-size: calc(15px + 0.390625vw) !important;
-}
-
-main {
-  padding-top: 2.5rem;
-}
+} */
