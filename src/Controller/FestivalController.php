@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\MessageRepository;
+
 
 #[Route('/festival')]
 class FestivalController extends AbstractController
@@ -43,10 +45,23 @@ class FestivalController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_festival_show', methods: ['GET'])]
-    public function show(Festival $festival): Response
+    public function show(Festival $festival, MessageRepository $messageRepository): Response
     {
+        $messages = $messageRepository->findAll(['type' => ['urgent', 'important']]);
+        $messageArray =[];
+
+
+        foreach($messages as $message){
+            $messageType = $message->getType();
+            $messageArray[]=[
+                'content' => $message->getContent(),
+                'type' => $messageType,
+                
+            ];
+        }
         return $this->render('festival/show.html.twig', [
             'festival' => $festival,
+            'messages' => $messageArray,
         ]);
     }
 

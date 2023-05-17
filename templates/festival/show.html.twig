@@ -1,34 +1,89 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Festival{% endblock %}
+{% block extra_scripts %}
+	<script src="{{ asset('scripts/message.js') }}"></script>
+
+	<script>
+		const messages = {{ messages | json_encode | raw }};
+	</script>
+
+
+{% endblock %}
+
+{% block extra_stylesheets %}
+
+	<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+{% endblock %}
+
+{% block title %}Nation Sounds
+{% endblock %}
 
 {% block body %}
-    <h1>Festival</h1>
+	<main>
+		<div class="container">
+			<button id="toggleBtn">&rarr;</button>
+			<h1 id="messageContent" class="{{messages[0]['type']}}">{{messages[0].content}}</h1>
+		</div>
+		<style>
+			#homepage-map {
+				height: 100%;
+				width: 100%;
+			}
+		</style>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ festival.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ festival.name }}</td>
-            </tr>
-            <tr>
-                <th>Begin_date</th>
-                <td>{{ festival.beginDate ? festival.beginDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>End_date</th>
-                <td>{{ festival.endDate ? festival.endDate|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="homepage-map" style="height: 400px;"></div>
 
-    <a href="{{ path('app_festival_index') }}">back to list</a>
 
-    <a href="{{ path('app_festival_edit', {'id': festival.id}) }}">edit</a>
+		<script>
+function initMap() {
+    const festival = {
+        lat: 44.86536609557045,
+        lng: -0.5603782196036978
+    };
 
-    {{ include('festival/_delete_form.html.twig') }}
+    // Création de la carte
+    const map = new google.maps.Map(document.getElementById("homepage-map"), {
+        zoom: 15,
+        center: festival,
+        styles: [
+            {
+                featureType: "poi", // Points of interest
+                stylers: [
+                    {
+                        visibility: "off"
+                    }
+                ] // les masquer
+            },
+            {
+                featureType: "transit", // Transports en commun
+                stylers: [
+                    {
+                        visibility: "off"
+                    }
+                ] // les masquer
+            }
+        ]
+    });
+
+    const festivalZone = new google.maps.Rectangle({
+        strokeColor: "grey",
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        fillColor: "grey",
+        fillOpacity: 0.15,
+        map: map, // Utilisez la variable 'map' au lieu de 'map_festival'
+        bounds: {
+            north: 44.86747143885584,
+            south: 44.86055159245217,
+            east: -0.5566437769608246,
+            west: -0.5691484354983696
+        }
+    });
+}
+console.log("homepage-map");
+  window.initMap = initMap;
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfh6E4gClmwOAfjx9hD9WrzmRWNWff1ko&callback=initMap&v=weekly" defer ></script>
+	</main>
 {% endblock %}
