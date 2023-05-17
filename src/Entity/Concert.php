@@ -22,13 +22,9 @@ class Concert
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $concert_date = null;
 
-    #[ORM\ManyToMany(targetEntity: Festival::class, inversedBy: 'concerts')]
-    private Collection $scene;
+    #[ORM\ManyToOne(inversedBy: 'concerts')]
+    private ?Scene $scene = null;
 
-    public function __construct()
-    {
-        $this->scene = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -62,23 +58,15 @@ class Concert
     /**
      * @return Collection<int, Festival>
      */
-    public function getScene(): Collection
+
+    public function getScene(): ?Scene
     {
         return $this->scene;
     }
 
-    public function addScene(Festival $scene): self
+    public function setScene(?Scene $scene): self
     {
-        if (!$this->scene->contains($scene)) {
-            $this->scene->add($scene);
-        }
-
-        return $this;
-    }
-
-    public function removeScene(Festival $scene): self
-    {
-        $this->scene->removeElement($scene);
+        $this->scene = $scene;
 
         return $this;
     }

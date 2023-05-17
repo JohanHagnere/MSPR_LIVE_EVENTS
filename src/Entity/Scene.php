@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SceneRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SceneRepository::class)]
@@ -24,6 +26,14 @@ class Scene
 
     #[ORM\ManyToOne(inversedBy: 'scenes')]
     private ?Festival $festival = null;
+
+    #[ORM\OneToMany(mappedBy: 'scene', targetEntity: Concert::class)]
+    private Collection $concerts;
+
+    public function __construct()
+    {
+        $this->concerts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +84,36 @@ class Scene
     public function setFestival(?Festival $festival): self
     {
         $this->festival = $festival;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Concert>
+     */
+    public function getConcerts(): Collection
+    {
+        return $this->concerts;
+    }
+
+    public function addConcert(Concert $concert): self
+    {
+        if (!$this->concerts->contains($concert)) {
+            $this->concerts->add($concert);
+            $concert->setScene($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConcert(Concert $concert): self
+    {
+        if ($this->concerts->removeElement($concert)) {
+            // set the owning side to null (unless already changed)
+            if ($concert->getScene() === $this) {
+                $concert->setScene(null);
+            }
+        }
 
         return $this;
     }
