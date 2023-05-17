@@ -23,12 +23,23 @@
   
  
   /*Mobile*/
+ .titreFaq{
+  display: flex;
+  justify-content: center;
+  
+ }
+  .centrertext
+{display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
  
  .pageFaq{  
     margin: 2% 5% 5% 10%;
     display:flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
  }
  h1{
     display:flex;
@@ -36,6 +47,8 @@
     color: white;
     padding:0.5em;
     border-radius: 6px 6px 6px 6px ;
+    justify-content: center;
+    width: 60%;
 
   }
     /* card des questions réponses */
@@ -52,7 +65,7 @@
       justify-content: space-between;
       /* align-items: center; */
       border-radius: 6px 6px 0px 0px ;
-
+      
     }
     .card-body {
       padding: 20px;
@@ -75,7 +88,17 @@
       font-weight:800;
     }
   
+
+  /* formulaire */
     
+  .form-control-faq{
+
+
+  }
+
+  .form-control-faq2{
+    
+  }
  
   
   

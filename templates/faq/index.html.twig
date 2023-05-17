@@ -14,10 +14,20 @@
 <main>
 
 
-    <section class="pageFaq">
-        <h1>LA F.A.Q. De Nation Sounds Festival</h1>
-        <br>
-        <article>
+    <section class="">
+
+        <div class="titreFaq">
+        <h1>LA F.A.Q. De Nation Sounds Festival</h1> 
+    </div>
+    <div class="centrertext">
+    <br>
+    {% if is_granted('ROLE_ADMIN') %} 
+        <a href="{{ path('app_faq_new', {'id': festival.id}) }}">Ajouter une question/réponse</a>
+        
+        {% endif %} 
+    
+</div>
+        <article class="pageFaq">
 
             {% for faq in faqs %}
 
@@ -26,7 +36,10 @@
                     <div class="icone">
                         <p class="question">{{ faq.question }}</p>
                          {# <a href="{{ path('app_faq_show', {'id': faq.id}) }}">show</a> #}
-                 <a href="{{ path('app_faq_edit', {'id': faq.id}) }}">edit</a>
+                        {% if is_granted('ROLE_ADMIN') %}  
+                 <a href="{{ path('app_faq_edit', {'id': faq.id}) }}">éditer</a>
+                 <a href="{{ path('app_faq_edit', {'id': faq.id}) }}">supprimer</a>
+                  {% endif %}  
                     </div>
                     <div class="laCroix">
                         <p>+</p>
@@ -36,7 +49,6 @@
                 <div class="card-body collapse">
                         <p>{{ faq.answer }}</p>
                          {# <a href="{{ path('app_faq_show', {'id': faq.id}) }}">show</a> #}
-                 <a href="{{ path('app_faq_edit', {'id': faq.id}) }}">edit</a>
                     </div>
 
                 </div>
@@ -45,7 +57,7 @@
             {% endfor %}
         
     </article>
-    <a href="{{ path('app_faq_new', {'id': festival.id}) }}">Create new</a>
+ 
      
 
 
