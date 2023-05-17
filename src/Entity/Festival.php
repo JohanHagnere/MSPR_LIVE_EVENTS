@@ -34,9 +34,6 @@ class Festival
     #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Scene::class)]
     private Collection $scenes;
 
-    #[ORM\OneToMany(mappedBy: 'performer_id', targetEntity: Concert::class)]
-    private Collection $concerts;
-
     #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Faq::class)]
     private Collection $faqs;
 
@@ -56,7 +53,6 @@ class Festival
     {
         $this->facilities = new ArrayCollection();
         $this->scenes = new ArrayCollection();
-        $this->concerts = new ArrayCollection();
         $this->faqs = new ArrayCollection();
     }
 
@@ -173,35 +169,7 @@ class Festival
         return $this;
     }
 
-    /**
-     * @return Collection<int, Concert>
-     */
-    public function getConcerts(): Collection
-    {
-        return $this->concerts;
-    }
 
-    public function addConcert(Concert $concert): self
-    {
-        if (!$this->concerts->contains($concert)) {
-            $this->concerts->add($concert);
-            $concert->setPerformer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeConcert(Concert $concert): self
-    {
-        if ($this->concerts->removeElement($concert)) {
-            // set the owning side to null (unless already changed)
-            if ($concert->getPerformer() === $this) {
-                $concert->setPerformer(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Faq>
