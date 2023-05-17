@@ -28,6 +28,7 @@ class MapFestivalController extends AbstractController
                 'latitude' => $marker->getLatitude(),
                 'img' => $marker->getImg(),
                 'category' => $marker->getCategory(),
+                'description' => $marker->getDescription()
             ];
             $newMarkers[] = $markerTable;
         }

@@ -25,9 +25,6 @@ class Festival
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
 
-    #[ORM\ManyToOne(inversedBy: 'festival_id')]
-    private ?Message $message = null;
-
     #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Facility::class)]
     private Collection $facilities;
 
@@ -98,18 +95,6 @@ class Festival
     public function setEndDate(\DateTimeInterface $end_date): self
     {
         $this->end_date = $end_date;
-
-        return $this;
-    }
-
-    public function getMessage(): ?Message
-    {
-        return $this->message;
-    }
-
-    public function setMessage(?Message $message): self
-    {
-        $this->message = $message;
 
         return $this;
     }

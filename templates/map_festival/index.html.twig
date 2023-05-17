@@ -101,8 +101,16 @@ block body %}
         category: markers[i].category,
         img: markers[i].img,
       });
+      const description = markers[i].description || "";
+      const contentString = `<div class="info-window">
+        <div class="info-window-title"> 
+          ${markers[i].name}
+          </div>
+        <div class="info-window-content">${description}
+        </div>
+        </div>`;
       const infoWindow = new google.maps.InfoWindow({
-        content: markers[i].name,
+        content: contentString,
       });
       marker.addListener("click", () => {
         infoWindow.open(map, marker);
@@ -110,7 +118,6 @@ block body %}
       // Mettez à jour le tableau `markers` avec les nouveaux marqueurs créés
       markers[i] = marker;
       let categoryUppercase = capitalizeFirstLetter(markers[i].category);
-      console.log(categoryUppercase);
 
       document.getElementById(
         "category-box"
