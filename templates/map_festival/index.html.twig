@@ -99,6 +99,7 @@ block body %}
           scaledSize: new google.maps.Size(28, 28),
         },
         category: markers[i].category,
+        img: markers[i].img,
       });
       const infoWindow = new google.maps.InfoWindow({
         content: markers[i].name,
@@ -108,6 +109,19 @@ block body %}
       });
       // Mettez à jour le tableau `markers` avec les nouveaux marqueurs créés
       markers[i] = marker;
+      let categoryUppercase = capitalizeFirstLetter(markers[i].category);
+      console.log(categoryUppercase);
+
+      document.getElementById(
+        "category-box"
+      ).innerHTML += `<div class='categories-box'>${categoryUppercase}<span><img src="${markers[i].img}" alt="${markers[i].title}"></span></div>`;
+    }
+
+    function capitalizeFirstLetter(word) {
+      const firstLetter = word.charAt(0);
+      const firstLetterCap = firstLetter.toUpperCase();
+      const remainingLetters = word.slice(1);
+      return firstLetterCap + remainingLetters;
     }
 
     function searchMarkers() {
