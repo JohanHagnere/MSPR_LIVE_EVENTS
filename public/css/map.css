@@ -1,4 +1,51 @@
-#map {
-    height: 100vh;
-    width: 100vw;
+#map_festival {
+  height: 100%;
+  width: 100%;
+}
+#searchbar {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.626);
+  border-radius: 5px;
+  border: 1px solid black;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+#searchbar input,
+#searchbar button {
+  border: none;
+  outline: none;
+  background-color: white;
+  padding: 0.2rem 0.4rem;
+}
+
+#searchbar button:active,
+#searchbar button:hover {
+  color: rgb(16, 152, 106);
+}
+#category-box {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 10;
+  width: 250px;
+  height: 50px;
+  transition: opacity 300ms ease-in-out;
+  background-color: rgba(96, 91, 91, 0.683);
+}
+
+#category-box.visible {
+  opacity: 1;
+  visibility: visible;
 }
