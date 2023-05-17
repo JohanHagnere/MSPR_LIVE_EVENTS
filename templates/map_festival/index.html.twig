@@ -1,24 +1,60 @@
 {% extends 'base.html.twig' %} {% block title %}Carte du festival{% endblock %}
-{% block body %}
-<style>
-  #map_festival {
-    height: 100%;
-    width: 100%;
-  }
-</style>
+{% block extra_stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/map.css') }}" /> {% endblock %} {%
+block body %}
+
 <div id="map_festival"></div>
+<div id="searchbar">
+  <input type="text" id="search-input" placeholder="Rechercher..." />
+  <button type="button" id="search-button" title="Rechercher">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+  <button type="button" id="search-filters" title="Filtres">
+    <i class="fa-solid fa-filter"></i>
+  </button>
+</div>
+<div id="category-box"></div>
 
 <script>
   const markers = JSON.parse("{{ markers | e('js') }}");
-
+  const festivalLocation = JSON.parse("{{ festivalLocation | e('js') }}");
   function initMap() {
-    const festival = { lat: 44.86536609557045, lng: -0.5603782196036978 };
+    const festival = {
+      lat: festivalLocation.latitude,
+      lng: festivalLocation.longitude,
+    };
 
     // Création de la carte
     const map = new google.maps.Map(document.getElementById("map_festival"), {
-      zoom: 15,
+      zoom: 17,
       center: festival,
+      styles: [
+        {
+          featureType: "poi", // Points of interest
+          stylers: [{ visibility: "off" }], // les masquer
+        },
+        {
+          featureType: "transit", // Transports en commun
+          stylers: [{ visibility: "off" }], // les masquer
+        },
+      ],
+      fullscreenControl: false,
+      mapTypeControl: false,
+      streetViewControl: false,
     });
+
+    const festivalBounds = festivalLocation.bounds;
+    const festivalZone = new google.maps.Polygon({
+      strokeColor: "grey",
+      strokeOpacity: 0.8,
+      strokeWeight: 3,
+      fillColor: "grey",
+      fillOpacity: 0.15,
+      map,
+      paths: festivalBounds,
+    });
+
+    festivalZone.setMap(map);
 
     // Récupération de la position de l'utilisateur
     if (navigator.geolocation) {
@@ -35,7 +71,6 @@
             map,
             title: "Votre position",
             icon: {
-              url: "{{ asset('icons/user-marker.svg') }}",
               scaledSize: new google.maps.Size(38, 38),
             },
           });
@@ -57,14 +92,58 @@
     for (var i = 0; i < markers.length; i++) {
       const marker = new google.maps.Marker({
         position: { lat: markers[i].latitude, lng: markers[i].longitude },
-        map,
+        map: map,
         title: markers[i].name,
         icon: {
           url: markers[i].img,
-          scaledSize: new google.maps.Size(38, 23),
+          scaledSize: new google.maps.Size(28, 28),
         },
+        category: markers[i].category,
       });
+      const infoWindow = new google.maps.InfoWindow({
+        content: markers[i].name,
+      });
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+      });
+      // Mettez à jour le tableau `markers` avec les nouveaux marqueurs créés
+      markers[i] = marker;
     }
+
+    function searchMarkers() {
+      // Récupérer la requête de recherche
+      const query = document.getElementById("search-input").value.toLowerCase();
+
+      // Parcourir les marqueurs
+      for (var i = 0; i < markers.length; i++) {
+        const marker = markers[i];
+
+        // Vérifier si le nom du marqueur correspond à la requête
+        if (
+          marker.title.toLowerCase().includes(query) ||
+          marker.category.toLowerCase().includes(query)
+        ) {
+          // Afficher le marqueur correspondant
+          marker.setMap(map);
+        } else {
+          // Masquer les marqueurs qui ne correspondent pas
+          marker.setMap(null);
+        }
+      }
+    }
+
+    function searchFilters() {
+      console.log("filtrer");
+      document.getElementById("category-box").classList.toggle("visible");
+    }
+
+    // Associer la fonction de recherche au bouton de recherche
+    document
+      .getElementById("search-button")
+      .addEventListener("click", searchMarkers);
+    document
+      .getElementById("search-filters")
+      .addEventListener("click", searchFilters);
   }
 
   window.initMap = initMap;

@@ -34,17 +34,25 @@ class Festival
     #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Scene::class)]
     private Collection $scenes;
 
-    #[ORM\OneToMany(mappedBy: 'performer_id', targetEntity: Concert::class)]
-    private Collection $concerts;
-
     #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Faq::class)]
     private Collection $faqs;
+
+    #[ORM\Column]
+    private ?float $longitude = null;
+
+    #[ORM\Column]
+    private ?float $latitude = null;
+
+    #[ORM\Column]
+    private array $bounds = [];
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $img = null;
 
     public function __construct()
     {
         $this->facilities = new ArrayCollection();
         $this->scenes = new ArrayCollection();
-        $this->concerts = new ArrayCollection();
         $this->faqs = new ArrayCollection();
     }
 
@@ -166,35 +174,7 @@ class Festival
         return $this;
     }
 
-    /**
-     * @return Collection<int, Concert>
-     */
-    public function getConcerts(): Collection
-    {
-        return $this->concerts;
-    }
 
-    public function addConcert(Concert $concert): self
-    {
-        if (!$this->concerts->contains($concert)) {
-            $this->concerts->add($concert);
-            $concert->setPerformer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeConcert(Concert $concert): self
-    {
-        if ($this->concerts->removeElement($concert)) {
-            // set the owning side to null (unless already changed)
-            if ($concert->getPerformer() === $this) {
-                $concert->setPerformer(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Faq>
@@ -222,6 +202,54 @@ class Festival
                 $faq->setFestival(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getBounds(): array
+    {
+        return $this->bounds;
+    }
+
+    public function setBounds(array $bounds): self
+    {
+        $this->bounds = $bounds;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }
