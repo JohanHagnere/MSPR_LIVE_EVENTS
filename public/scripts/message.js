@@ -10,5 +10,5 @@ var toggleBtn = document.getElementById('toggleBtn');
             }
             messageContent.innerHTML = `<h1 id="messageContent" class="${messages[currentIndex].type}">${messages[currentIndex].content}</h1>`
         }
-        console.log(messageContent);
+       // console.log(messageContent);
         toggleBtn.addEventListener('click', toggleMessage);
