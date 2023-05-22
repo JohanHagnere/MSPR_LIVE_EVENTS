@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ConcertRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +15,7 @@ class Concert
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'concerts')]
-    private ?Festival $performer = null;
+    private ?Performer $performer = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $concert_date = null;
@@ -31,12 +29,12 @@ class Concert
         return $this->id;
     }
 
-    public function getPerformer(): ?Festival
+    public function getPerformer(): ?Performer
     {
         return $this->performer;
     }
 
-    public function setPerformer(?Festival $performer): self
+    public function setPerformer(?Performer $performer): self
     {
         $this->performer = $performer;
 
@@ -55,9 +53,7 @@ class Concert
         return $this;
     }
 
-    /**
-     * @return Collection<int, Festival>
-     */
+  
 
     public function getScene(): ?Scene
     {
