@@ -12,7 +12,7 @@
 
 {% block extra_stylesheets %}
 
-	<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
 {% endblock %}
 
@@ -23,7 +23,7 @@
 	<main>
 		<div class="container">
 			<button id="toggleBtn">&rarr;</button>
-			<h1 id="messageContent" class="{{messages[0]['type']}}">{{messages[0].content}}</h1>
+            <div id="messageParent"><h1 id="messageContent" class={{messages[0].type}}>{{messages[0].content}}</h1></div>
 		</div>
 		<style>
 			#homepage-map {
