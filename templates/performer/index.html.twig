@@ -6,6 +6,29 @@ block body %}
   <thead>
     <tr>
       <th>Id</th>
+      <th>performer_id</th>
+      <th>concert_date</th>
+      <th>scene_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for concert in concerts %}
+    <tr>
+      <td>{{ concert.id }}</td>
+      <td>{{ concert.performer_id }}</td>
+      <td>{{ concert.concert_date }}</td>
+      <td>{{ concert.scene_id }}</td>
+      
+    </tr>
+    
+    {% endfor %}
+  </tbody>
+
+
+
+  <thead>
+    <tr>
+      <th>Id</th>
       <th>Name</th>
       <th>Description</th>
       <th>Image</th>
