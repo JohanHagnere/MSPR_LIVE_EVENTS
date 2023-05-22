@@ -25,13 +25,13 @@ class Festival
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
 
-    #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Facility::class)]
+    #[ORM\OneToMany(mappedBy: 'festival', targetEntity: Facility::class)]
     private Collection $facilities;
 
-    #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Scene::class)]
+    #[ORM\OneToMany(mappedBy: 'festival', targetEntity: Scene::class)]
     private Collection $scenes;
 
-    #[ORM\OneToMany(mappedBy: 'festival_id', targetEntity: Faq::class)]
+    #[ORM\OneToMany(mappedBy: 'festival', targetEntity: Faq::class)]
     private Collection $faqs;
 
     #[ORM\Column]
