@@ -1,39 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block extra_stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/festival.css') }}" /> {% endblock %}
+{% block title %}Festival{% endblock %} {% block body %}
 
-{% block title %}Festival index{% endblock %}
+<main class="container">
+  <h1>Nos Festivals</h1>
+  {% for festival in festivals %}
 
-{% block body %}
-    <h1>Festival index</h1>
+  <div class="contain-festival">
+    <a
+      class="card-festival"
+      href="{{ path('app_festival_show', { id: festival.id }) }}"
+    >
+      <div class="festival">
+        <img src="{{ festival.img }}" alt="" />
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Begin_date</th>
-                <th>End_date</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for festival in festivals %}
-            <tr>
-                <td>{{ festival.id }}</td>
-                <td>{{ festival.name }}</td>
-                <td>{{ festival.beginDate ? festival.beginDate|date('Y-m-d') : '' }}</td>
-                <td>{{ festival.endDate ? festival.endDate|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_festival_show', {'id': festival.id}) }}">show</a>
-                    <a href="{{ path('app_festival_edit', {'id': festival.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="contain-info-festival">
+          <h2>{{ festival.name }}</h2>
+          <p>
+            Du
+            {{ festival.beginDate ? festival.beginDate|date('d-m-Y') : '' }}
+            {{ festival.endDate ? festival.endDate|date('d-m-Y') : '' }}
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</main>
 
-    <a href="{{ path('app_festival_new') }}">Create new</a>
 {% endblock %}
