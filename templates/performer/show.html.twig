@@ -5,6 +5,29 @@
 {% block body %}
     <h1>Performer</h1>
 
+    <section Class="pictureIntro">
+
+
+        boucle sur festival
+        boucle sur scene.
+        {% for performer in performers %}
+
+
+
+
+
+        {% for concert  in.performer.concerts %}
+      
+        <div>
+        <p>scène {{concert.scene.name}} le {{ concert.concertDate|date("d/m/y")}} </p>
+        <img  src={{ asset('images/'~performer.image) }} alt="photoArtisteFlou">
+      <img  src={{ asset('images/'~performer.image) }} alt="photoArtiste">
+      <h1>{{ performer.name }}</h1>
+      </div>
+      {% endfor %}
+      {% endfor %}
+      </section>
+
     <table class="table">
         <tbody>
             <tr>
