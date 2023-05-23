@@ -6,6 +6,9 @@
 	<script>
 		const messages = {{ messages | json_encode | raw }};
 	</script>
+	<script>
+		src = "https://code.jquery.com/jquery-3.6.0.min.js" >
+	</script>
 
 
 {% endblock %}
@@ -21,69 +24,99 @@
 
 {% block body %}
 	<main>
-		<div class="container">
-			<button id="toggleBtn">&rarr;</button>
-            <div id="messageParent"><h1 id="messageContent" class={{messages[0].type}}>{{messages[0].content}}</h1></div>
+		<div id="messageParent">
+			<h1 id="messageContent" class={{messages[0].type}}>{{messages[0].content}}</h1>
 		</div>
-		<style>
-			#homepage-map {
-				height: 100%;
-				width: 100%;
-			}
-		</style>
+		<button id="toggleBtn">
+			<i class="fa-solid fa-arrow-right"></i>
+		</button>
 
-    <div id="homepage-map" style="height: 400px;"></div>
+	</div>
+	<style>
+		#homepage-map {
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+
+	<div id="homepage-map" style="height: 400px;"></div>
 
 
-		<script>
-function initMap() {
-    const festival = {
-        lat: 44.86536609557045,
-        lng: -0.5603782196036978
-    };
+	<script>
+		function initMap() {
+const festival = {
+lat: 44.86536609557045,
+lng: -0.5603782196036978
+};
 
-    // Création de la carte
-    const map = new google.maps.Map(document.getElementById("homepage-map"), {
-        zoom: 15,
-        center: festival,
-        styles: [
-            {
-                featureType: "poi", // Points of interest
-                stylers: [
-                    {
-                        visibility: "off"
-                    }
-                ] // les masquer
-            },
-            {
-                featureType: "transit", // Transports en commun
-                stylers: [
-                    {
-                        visibility: "off"
-                    }
-                ] // les masquer
-            }
-        ]
-    });
+// Création de la carte
+const map = new google.maps.Map(document.getElementById("homepage-map"), {
+zoom: 15,
+center: festival,
+styles: [
+{
+featureType: "poi", // Points of interest
+stylers: [
+{
+visibility: "off"
+}
+] // les masquer
+}, {
+featureType: "transit", // Transports en commun
+stylers: [
+{
+visibility: "off"
+}
+] // les masquer
+}
+]
+});
 
-    const festivalZone = new google.maps.Rectangle({
-        strokeColor: "grey",
-        strokeOpacity: 0.8,
-        strokeWeight: 3,
-        fillColor: "grey",
-        fillOpacity: 0.15,
-        map: map, // Utilisez la variable 'map' au lieu de 'map_festival'
-        bounds: {
-            north: 44.86747143885584,
-            south: 44.86055159245217,
-            east: -0.5566437769608246,
-            west: -0.5691484354983696
-        }
-    });
+const festivalZone = new google.maps.Rectangle({
+strokeColor: "grey",
+strokeOpacity: 0.8,
+strokeWeight: 3,
+fillColor: "grey",
+fillOpacity: 0.15,
+map: map, // Utilisez la variable 'map' au lieu de 'map_festival'
+bounds: {
+north: 44.86747143885584,
+south: 44.86055159245217,
+east: -0.5566437769608246,
+west: -0.5691484354983696
+}
+});
 }
 console.log("homepage-map");
-  window.initMap = initMap;
-		</script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfh6E4gClmwOAfjx9hD9WrzmRWNWff1ko&callback=initMap&v=weekly" defer ></script>
-	</main>
-{% endblock %}
+window.initMap = initMap;
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfh6E4gClmwOAfjx9hD9WrzmRWNWff1ko&callback=initMap&v=weekly" defer></script>
+
+	<div class="footer-menu">
+		<a href="/festival" class="footer-menu-item">
+			<i class="fas fa-home"></i>
+			<span>Accueil</span>
+		</a>
+		<a href="/festival" class="footer-menu-item">
+			<i class="fas fa-calendar"></i>
+			<span>Programme</span>
+		</a>
+		<a href="/festival" class="footer-menu-item">
+			<i class="fas fa-map"></i>
+			<span>Carte</span>
+		</a>
+		<a href="/festival" class="footer-menu-item">
+			<i class="fas fa-question-circle"></i>
+			<span>FAQ</span>
+		</a>
+		<div class="menu-plus">
+			<i class="fas fa-ellipsis-h" style="font-size: 1.5em; letter-spacing: 10px;"></i>
+			<span>Menu +</span>
+			<ul class="sub-menu">
+				<li><a href="/">Réseaux</a></li>
+				<li><a href="/">Partenaires</a></li>
+			</ul>
+		</div>
+    </div>
+	</a>
+</div></main>{% endblock %}
