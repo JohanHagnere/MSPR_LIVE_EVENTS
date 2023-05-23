@@ -160,11 +160,20 @@ block body %}
 
     // Associer la fonction de recherche au bouton de recherche
     document
-      .getElementById("search-button")
-      .addEventListener("click", searchMarkers);
+      .getElementById("search-input")
+      .addEventListener("input", searchMarkers);
     document
       .getElementById("search-filters")
       .addEventListener("click", searchFilters);
+  }
+  const categoriesBox = document.getElementsByClassName("categories-box");
+  console.log(categoriesBox);
+  for (let index = 0; index < categoriesBox.length; index++) {
+    const element = categoriesBox[index];
+    console.log(element);
+    element.addEventListener("click", () => {
+      console.log("ok");
+    });
   }
 
   window.initMap = initMap;
