@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PerformerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,14 @@ class Performer
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $image = null;
+
+    #[ORM\OneToMany(mappedBy: 'performer', targetEntity: Concert::class)]
+    private Collection $concerts;
+
+    public function __construct()
+    {
+        $this->concerts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +70,34 @@ class Performer
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+   
+    public function getConcerts(): Collection
+    {
+        return $this->concerts;
+    }
+
+    public function addConcert(Concert $concert): self
+    {
+        if (!$this->concerts->contains($concert)) {
+            $this->concerts->add($concert);
+            $concert->setPerformer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConcert(Concert $concert): self
+    {
+        if ($this->concerts->removeElement($concert)) {
+            // set the owning side to null (unless already changed)
+            if ($concert->getPerformer() === $this) {
+                $concert->setPerformer(null);
+            }
+        }
 
         return $this;
     }

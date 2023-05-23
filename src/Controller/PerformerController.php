@@ -10,15 +10,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ConcertRepository;
 
 #[Route('/performer')]
 class PerformerController extends AbstractController
 {
     #[Route('/', name: 'app_performer_index', methods: ['GET'])]
-    public function index(PerformerRepository $performerRepository): Response
+    public function index(PerformerRepository $performerRepository, ConcertRepository $concertRepository): Response
     {
         return $this->render('performer/index.html.twig', [
             'performers' => $performerRepository->findAll(),
+            'concerts' => $concertRepository->findAll(),
         ]);
     }
 

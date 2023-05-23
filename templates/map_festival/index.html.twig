@@ -17,6 +17,7 @@ block body %}
 
 <script>
   const markers = JSON.parse("{{ markers | e('js') }}");
+  const categories = JSON.parse("{{ categories | e('js') }}");
   const festivalLocation = JSON.parse("{{ festivalLocation | e('js') }}");
   function initMap() {
     const festival = {
@@ -117,6 +118,10 @@ block body %}
       });
       // Mettez à jour le tableau `markers` avec les nouveaux marqueurs créés
       markers[i] = marker;
+    }
+    
+    
+    for (var i = 0; i < categories.length; i++) {
       let categoryUppercase = capitalizeFirstLetter(markers[i].category);
 
       document.getElementById(
@@ -160,11 +165,19 @@ block body %}
 
     // Associer la fonction de recherche au bouton de recherche
     document
-      .getElementById("search-button")
-      .addEventListener("click", searchMarkers);
+      .getElementById("search-input")
+      .addEventListener("input", searchMarkers);
     document
       .getElementById("search-filters")
       .addEventListener("click", searchFilters);
+    const categoriesBox = document.getElementsByClassName("categories-box");
+    for (let index = 0; index < categoriesBox.length; index++) {
+      const element = categoriesBox[index];
+      element.addEventListener("click", (e) => {
+        document.getElementById("search-input").value = e.target.outerText;
+        searchMarkers();
+      });
+    }
   }
 
   window.initMap = initMap;
