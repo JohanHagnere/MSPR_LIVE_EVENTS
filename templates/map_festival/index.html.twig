@@ -17,6 +17,7 @@ block body %}
 
 <script>
   const markers = JSON.parse("{{ markers | e('js') }}");
+  const categories = JSON.parse("{{ categories | e('js') }}");
   const festivalLocation = JSON.parse("{{ festivalLocation | e('js') }}");
   function initMap() {
     const festival = {
@@ -117,6 +118,10 @@ block body %}
       });
       // Mettez à jour le tableau `markers` avec les nouveaux marqueurs créés
       markers[i] = marker;
+    }
+    
+    
+    for (var i = 0; i < categories.length; i++) {
       let categoryUppercase = capitalizeFirstLetter(markers[i].category);
 
       document.getElementById(

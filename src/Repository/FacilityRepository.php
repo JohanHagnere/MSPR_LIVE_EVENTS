@@ -42,7 +42,6 @@ class FacilityRepository extends ServiceEntityRepository
     {
        return $this->createQueryBuilder('f')
            ->select('f.category')
-           ->where('festival_id' === 1)
            //->orderBy('f.category', 'ASC')
            ->distinct()
            ->getQuery()
