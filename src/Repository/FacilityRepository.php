@@ -40,8 +40,9 @@ class FacilityRepository extends ServiceEntityRepository
     }
     public function findDistinctFacilities(): array
     {
-       return $this->createQueryBuilder('c')
-           ->select('c.category')
+       return $this->createQueryBuilder('f')
+           ->select('f.category')
+           ->where('festival_id' === 1)
            //->orderBy('f.category', 'ASC')
            ->distinct()
            ->getQuery()
