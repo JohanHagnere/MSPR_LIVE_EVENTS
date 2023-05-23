@@ -14,31 +14,19 @@ class Concert
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'concerts')]
-    private ?Performer $performer = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $concert_date = null;
 
     #[ORM\ManyToOne(inversedBy: 'concerts')]
     private ?Scene $scene = null;
 
+    #[ORM\ManyToOne(inversedBy: 'concerts')]
+    private ?Performer $performer = null;
+
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPerformer(): ?Performer
-    {
-        return $this->performer;
-    }
-
-    public function setPerformer(?Performer $performer): self
-    {
-        $this->performer = $performer;
-
-        return $this;
     }
 
     public function getConcertDate(): ?\DateTimeInterface
@@ -63,6 +51,18 @@ class Concert
     public function setScene(?Scene $scene): self
     {
         $this->scene = $scene;
+
+        return $this;
+    }
+
+    public function getPerformer(): ?Performer
+    {
+        return $this->performer;
+    }
+
+    public function setPerformer(?Performer $performer): self
+    {
+        $this->performer = $performer;
 
         return $this;
     }
