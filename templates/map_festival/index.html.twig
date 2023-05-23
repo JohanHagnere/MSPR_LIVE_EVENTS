@@ -165,15 +165,14 @@ block body %}
     document
       .getElementById("search-filters")
       .addEventListener("click", searchFilters);
-  }
-  const categoriesBox = document.getElementsByClassName("categories-box");
-  console.log(categoriesBox);
-  for (let index = 0; index < categoriesBox.length; index++) {
-    const element = categoriesBox[index];
-    console.log(element);
-    element.addEventListener("click", () => {
-      console.log("ok");
-    });
+    const categoriesBox = document.getElementsByClassName("categories-box");
+    for (let index = 0; index < categoriesBox.length; index++) {
+      const element = categoriesBox[index];
+      element.addEventListener("click", (e) => {
+        document.getElementById("search-input").value = e.target.outerText;
+        searchMarkers();
+      });
+    }
   }
 
   window.initMap = initMap;
