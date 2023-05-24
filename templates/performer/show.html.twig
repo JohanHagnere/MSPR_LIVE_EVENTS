@@ -3,55 +3,47 @@
 {% block title %}Performer{% endblock %}
 
 {% block body %}
-    <h1>Performer</h1>
+<h1>Performer</h1>
 
-    <section Class="pictureIntro">
-
-
-        boucle sur festival
-        boucle sur scene.
-        {% for performer in performers %}
-
-
-
-
-
-        {% for concert  in.performer.concerts %}
-      
-        <div>
-        <p>scène {{concert.scene.name}} le {{ concert.concertDate|date("d/m/y")}} </p>
-        <img  src={{ asset('images/'~performer.image) }} alt="photoArtisteFlou">
-      <img  src={{ asset('images/'~performer.image) }} alt="photoArtiste">
-      <h1>{{ performer.name }}</h1>
-      </div>
+<section Class="pictureIntro">
+  
+      {% for concert in performer.concerts %}
+        {% if concert.scene.festival == festival %}
+  <div>
+          <p>scène {{concert.scene.name}} le {{ concert.concertDate|date("d/m/y")}} </p>
+          <img src={{ asset('images/'~performer.image) }} alt="photoArtisteFlou">
+          <img src={{ asset('images/'~performer.image) }} alt="photoArtiste">
+          <h1>{{ performer.name }}</h1>
+        </div>
+        {% endif %}
       {% endfor %}
-      {% endfor %}
-      </section>
+    
+  </section>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ performer.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ performer.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ performer.description }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ performer.image }}</td>
-            </tr>
-        </tbody>
-    </table>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ performer.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ performer.name }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ performer.description }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td>{{ performer.image }}</td>
+        </tr>
+    </tbody>
+</table>
 
-    <a href="{{ path('app_performer_index') }}">back to list</a>
+<a href="{{ path('app_performer_index', {'id': performer.id, 'festival': festival.id}) }}">back to list</a>
 
-    <a href="{{ path('app_performer_edit', {'id': performer.id}) }}">edit</a>
+<a href="{{ path('app_performer_edit', {'id': performer.id, 'festival': festival.id}) }}">edit</a>
 
-    {{ include('performer/_delete_form.html.twig') }}
+{{ include('performer/_delete_form.html.twig') }}
 {% endblock %}
