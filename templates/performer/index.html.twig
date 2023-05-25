@@ -2,76 +2,20 @@
 block body %}
 <h1>Performer index</h1>
 
-
-<section Class="pictureIntro">
-  {% for performer in performers %} 
-    {% for concert in performer.concerts %}
-      {% if concert.scene.festival == festival %}
-<div>
-        <p>scène {{concert.scene.name}} le {{ concert.concertDate|date("d/m/y")}} </p>
-        <img src={{ asset('images/'~performer.image) }} alt="photoArtisteFlou">
-        <img src={{ asset('images/'~performer.image) }} alt="photoArtiste">
-        <h1>{{ performer.name }}</h1>
-      </div>
-      {% endif %}
-    {% endfor %}
-  {% endfor %}
+<section class="pictureIntro">
+  {% for performer in performers %} {% for concert in performer.concerts %} {%
+  if concert.scene.festival == festival %}
+  <div>
+    <p>
+      scène {{ concert.scene.name }} le {{ concert.concertDate|date("d/m/y")}}
+    </p>
+    <img src={{ asset('images/'~performer.image) }} alt="photoArtisteFlou"> <img
+    src={{ asset('images/'~performer.image) }} alt="photoArtiste">
+    <h1>{{ performer.name }}</h1>
+  </div>
+  {% endif %} {% endfor %} {% endfor %}
 </section>
 
-{# <table class="table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>performer_id</th>
-      <th>concert_date</th>
-      <th>scene_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for concert in concerts %}
-    <tr>
-      <td>{{ concert.id }}</td>
-      <td>{{ concert.performer.name}}</td>
-      <td>{{ concert.concertDate|date("d/m/y")}}</td>
-      <td>{{ concert.scene.name}}</td>
-
-    </tr>
-
-    {% endfor %}
-  </tbody>
-
-
-
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Image</th>
-      <th>actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for performer in performers %}
-    <tr>
-      <td>{{ performer.id }}</td>
-      <td>{{ performer.name }}</td>
-      <td>{{ performer.description }}</td>
-      <td>{{ performer.image }}</td>
-      <td>
-        <a href="{{ path('app_performer_show', { id: performer.id }) }}">show</a>
-        {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_performer_edit', { id: performer.id }) }}">edit</a>
-        {% endif %}
-      </td>
-    </tr>
-    {% else %}
-    <tr>
-      <td colspan="5">no records found</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table> #}
 {% if is_granted('ROLE_ADMIN') %}
 <a href="{{ path('app_performer_new') }}">Create new</a>
 {% endif %} {% endblock %}
