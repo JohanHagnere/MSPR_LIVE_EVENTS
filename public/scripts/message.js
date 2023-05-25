@@ -8,8 +8,10 @@ function toggleMessage() {
     if (currentIndex >= messages.length) {
         currentIndex = 0;
     }
-    messageParent.innerHTML = `<h1 id="messageContent" class=${messages[currentIndex].type}>${messages[currentIndex].content}</h1>`
-}
+    var messageContent = document.getElementById('messageContent');
+    messageContent.textContent = messages[currentIndex].content;
+    messageContent.className = messages[currentIndex].type;}
+    
 toggleBtn.addEventListener('click', toggleMessage);
 
 let subMenu = document.querySelector('.sub-menu');

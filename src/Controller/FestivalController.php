@@ -45,23 +45,30 @@ class FestivalController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_festival_show', methods: ['GET'])]
-    public function show(Festival $festival, MessageRepository $messageRepository): Response
+    public function show(Request $request, FestivalRepository $festivalRepository, MessageRepository $messageRepository): Response
     {
+        // $id = $request->attributes->get('id');
+        $festival = $festivalRepository->find(1);
+        $newLocation = ['longitude' => $festival->getLongitude(), 'latitude' => $festival->getLatitude(), 'bounds' => $festival->getBounds()];
+
         $messages = $messageRepository->findAll(['type' => ['urgent', 'important']]);
         $messageArray =[];
 
+        // récupérer l'id pour le mettre dans fin
 
         foreach($messages as $message){
             $messageType = $message->getType();
             $messageArray[]=[
                 'content' => $message->getContent(),
                 'type' => $messageType,
-                
             ];
+
         }
         return $this->render('festival/show.html.twig', [
             'festival' => $festival,
             'messages' => $messageArray,
+            'festivalLocation' => json_encode($newLocation),
+
         ]);
     }
 
