@@ -3,7 +3,7 @@ block body %}
 <main>
   <h1>{{ festival.name }}</h1>
 
-  <div class="concert">
+  <section class="concert">
     <h2>Concerts:</h2>
     <ul>
       {% for concert in concerts %}
@@ -22,6 +22,40 @@ block body %}
       </li>
       {% endfor %}
     </ul>
-  </div>
+  </section>
+  <section class="performer">
+    <h2>Performers:</h2>
+    <ul>
+      {% for performer in performers %}
+      <li>
+        Id: <span>{{ performer.id }}</span> Name:
+        <span>{{ performer.name }}</span>
+        <a href="{{ path('app_performer_new', { festival: festival.id }) }}">
+          <i class="fa-solid fa-plus"></i>
+        </a>
+        <a
+          href="{{
+            path('app_performer_edit', {
+              festival: festival.id,
+              id: performer.id
+            })
+          }}"
+        >
+          <i class="fa-regular fa-note-sticky"></i>
+        </a>
+        <a
+          href="{{
+            path('app_performer_delete', {
+              festival: festival.id,
+              id: performer.id
+            })
+          }}"
+        >
+          <i class="fa-regular fa-trash-can"></i>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
 </main>
 {% endblock %}
