@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Concert;
+use App\Entity\Festival;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,28 +40,25 @@ class ConcertRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Concert[] Returns an array of Concert objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Concert[] Returns an array of Concert objects
+     */
+    public function findByFestival(Festival $festival): array
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.scene', 's')
+            ->andWhere('s.festival = :festival')->setParameter('festival', $festival)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Concert
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Concert
+    //    {
+    //        return $this->createQueryBuilder('c')
+    //            ->andWhere('c.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

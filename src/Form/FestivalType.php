@@ -14,9 +14,7 @@ class FestivalType extends AbstractType
         $builder
             ->add('name')
             ->add('begin_date')
-            ->add('end_date')
-            ->add('message')
-        ;
+            ->add('end_date');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

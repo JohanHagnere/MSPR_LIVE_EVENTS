@@ -41,7 +41,7 @@ class Concert
         return $this;
     }
 
-  
+
 
     public function getScene(): ?Scene
     {

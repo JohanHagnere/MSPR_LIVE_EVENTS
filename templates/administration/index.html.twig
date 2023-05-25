@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %} {% block title %}Administration{% endblock %} {%
+block body %}
+<main>
+  <h1>{{ festival.name }}</h1>
+
+  <div class="concert">
+    <h2>Concerts:</h2>
+    <ul>
+      {% for concert in concerts %}
+      <li>
+        Id: <span>{{ concert.id }}</span> Date du concert:
+        <span>{{ concert.concertDate|date('d/m/Y H:i:s') }}</span>
+        <a href="{{ path('app_concert_new', { id: concert.id }) }}">
+          <i class="fa-solid fa-plus"></i>
+        </a>
+        <a href="{{ path('app_concert_edit', { id: concert.id }) }}">
+          <i class="fa-regular fa-note-sticky"></i>
+        </a>
+        <a href="{{ path('app_concert_delete', { id: concert.id }) }}">
+          <i class="fa-regular fa-trash-can"></i>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</main>
+{% endblock %}
