@@ -4,21 +4,21 @@ block body %}
 
 
 <section Class="pictureIntro">
-
-  {% for performer in performers %}
-  {% for concert  in performer.concerts %}
-
-  <div>
-  <p>scène {{concert.scene.name}} le {{ concert.concertDate|date("d/m/y")}} </p>
-  <img  src={{ asset('images/'~performer.image) }} alt="photoArtisteFlou">
-<img  src={{ asset('images/'~performer.image) }} alt="photoArtiste">
-<h1>{{ performer.name }}</h1>
-</div>
-{% endfor %}
-{% endfor %}
+  {% for performer in performers %} 
+    {% for concert in performer.concerts %}
+      {% if concert.scene.festival == festival %}
+<div>
+        <p>scène {{concert.scene.name}} le {{ concert.concertDate|date("d/m/y")}} </p>
+        <img src={{ asset('images/'~performer.image) }} alt="photoArtisteFlou">
+        <img src={{ asset('images/'~performer.image) }} alt="photoArtiste">
+        <h1>{{ performer.name }}</h1>
+      </div>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
 </section>
 
-<table class="table">
+{# <table class="table">
   <thead>
     <tr>
       <th>Id</th>
@@ -31,12 +31,12 @@ block body %}
     {% for concert in concerts %}
     <tr>
       <td>{{ concert.id }}</td>
-      <td>{{ concert.performer.name}}</td> 
-      <td>{{ concert.concertDate|date("d/m/y")}}</td> 
+      <td>{{ concert.performer.name}}</td>
+      <td>{{ concert.concertDate|date("d/m/y")}}</td>
       <td>{{ concert.scene.name}}</td>
-      
+
     </tr>
-    
+
     {% endfor %}
   </tbody>
 
@@ -59,13 +59,9 @@ block body %}
       <td>{{ performer.description }}</td>
       <td>{{ performer.image }}</td>
       <td>
-        <a href="{{ path('app_performer_show', { id: performer.id }) }}"
-          >show</a
-        >
+        <a href="{{ path('app_performer_show', { id: performer.id }) }}">show</a>
         {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_performer_edit', { id: performer.id }) }}"
-          >edit</a
-        >
+        <a href="{{ path('app_performer_edit', { id: performer.id }) }}">edit</a>
         {% endif %}
       </td>
     </tr>
@@ -75,7 +71,7 @@ block body %}
     </tr>
     {% endfor %}
   </tbody>
-</table>
+</table> #}
 {% if is_granted('ROLE_ADMIN') %}
 <a href="{{ path('app_performer_new') }}">Create new</a>
 {% endif %} {% endblock %}

@@ -2,56 +2,70 @@
 
 {% block title %}Performer{% endblock %}
 
+{% block extra_stylesheets %}
+<link rel="stylesheet" href="{{asset('css/_performer.css')}}"> 
+{% endblock %}
+
 {% block body %}
-    <h1>Performer</h1>
+<h1>Performer</h1>
 
-    <section Class="pictureIntro">
+<section Class="pictureIntro">
 
+    {% for concert in performer.concerts %}
+    {% if concert.scene.festival == festival %}
+    <div >
 
-        boucle sur festival
-        boucle sur scene.
-        {% for performer in performers %}
+        <img class="blurry-image" src={{ asset('images/'~performer.image) }} alt="photoArtisteFlou">
+        <img class="perf-image" src={{ asset('images/'~performer.image) }} alt="photoArtiste">
 
+    </div>
+    <div class="contain-performer">
 
+        <p> {{concert.scene.name}} le {{ concert.concertDate|date("d/m/y")}} </p>
+        <h1>{{ performer.name }}</h1>
+        <p>{{ performer.description }}</p>
 
+        <div class="contain-localisation">
+            <h2 {{concert.scene.name}}</h2>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d4903.5213956036605!2d4.025195765288343!3d43.55667608825187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDPCsDMzJzIxLjUiTiA0wrAwMSc0Ni41IkU!5e0!3m2!1sfr!2sfr!4v1683269616720!5m2!1sfr!2sfr"
+                    width="100%" style="border: 0" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
 
+    </div>
 
-        {% for concert  in.performer.concerts %}
-      
-        <div>
-        <p>scène {{concert.scene.name}} le {{ concert.concertDate|date("d/m/y")}} </p>
-        <img  src={{ asset('images/'~performer.image) }} alt="photoArtisteFlou">
-      <img  src={{ asset('images/'~performer.image) }} alt="photoArtiste">
-      <h1>{{ performer.name }}</h1>
-      </div>
-      {% endfor %}
-      {% endfor %}
-      </section>
+    <a href="{{ path('app_concert_show', {'id': concert.id, 'festival': festival.id}) }}">Voir l'agenda de la soirée</a>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ performer.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ performer.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ performer.description }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ performer.image }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {% endif %}
+    {% endfor %}
 
-    <a href="{{ path('app_performer_index') }}">back to list</a>
+</section>
 
-    <a href="{{ path('app_performer_edit', {'id': performer.id}) }}">edit</a>
+{# <table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ performer.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ performer.name }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ performer.description }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td>{{ performer.image }}</td>
+        </tr>
+    </tbody>
+</table> #}
 
-    {{ include('performer/_delete_form.html.twig') }}
+<a href="{{ path('app_performer_index', {'id': performer.id, 'festival': festival.id}) }}">back to list</a>
+
+<a href="{{ path('app_performer_edit', {'id': performer.id, 'festival': festival.id}) }}">edit</a>
+
+{{ include('performer/_delete_form.html.twig') }}
 {% endblock %}

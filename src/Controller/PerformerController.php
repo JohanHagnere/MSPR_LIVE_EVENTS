@@ -11,16 +11,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ConcertRepository;
-
-#[Route('/performer')]
+use App\Repository\FestivalRepository;
+use App\Repository\SceneRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use App\Entity\Festival;
+#[Route('{festival}/performer')]
+#[Entity('festival, expr:repository.find(festival)')]
 class PerformerController extends AbstractController
 {
     #[Route('/', name: 'app_performer_index', methods: ['GET'])]
-    public function index(PerformerRepository $performerRepository, ConcertRepository $concertRepository): Response
+    public function index(Festival $festival,  PerformerRepository $performerRepository, ConcertRepository $concertRepository, FestivalRepository $festivalRepository, SceneRepository $sceneRepository): Response
     {
         return $this->render('performer/index.html.twig', [
             'performers' => $performerRepository->findAll(),
-            'concerts' => $concertRepository->findAll(),
+            'festival' => $festival,
+            //'concerts' => $concertRepository->findAll(),
+            //'festivals' => $festivalRepository->findAll(),
+            //'scenes' => $sceneRepository->findAll(),
+
         ]);
     }
 
@@ -45,16 +53,18 @@ class PerformerController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_performer_show', methods: ['GET'])]
-    public function show(Performer $performer): Response
+    public function show(Performer $performer, Festival $festival): Response
     {
         return $this->render('performer/show.html.twig', [
             'performer' => $performer,
+            'festival' => $festival,
+          
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_performer_edit', methods: ['GET', 'POST'])]
     #[IsGranted("ROLE_ADMIN")]
-    public function edit(Request $request, Performer $performer, PerformerRepository $performerRepository): Response
+    public function edit(Request $request, Performer $performer, Festival $festival, PerformerRepository $performerRepository): Response
     {
         $form = $this->createForm(PerformerType::class, $performer);
         $form->handleRequest($request);
@@ -67,6 +77,7 @@ class PerformerController extends AbstractController
 
         return $this->renderForm('performer/edit.html.twig', [
             'performer' => $performer,
+            'festival' => $festival,
             'form' => $form,
         ]);
     }
