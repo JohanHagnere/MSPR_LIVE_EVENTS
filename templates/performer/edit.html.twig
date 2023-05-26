@@ -1,13 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}Edit Performer{% endblock %} {%
+block body %}
+<h1>Edit Performer</h1>
 
-{% block title %}Edit Performer{% endblock %}
+{{ include("performer/_form.html.twig", { button_label: "Update" }) }}
 
-{% block body %}
-    <h1>Edit Performer</h1>
+<a href="{{ path('app_performer_index', { festival: festival }) }}"
+  >back to list</a
+>
 
-    {{ include('performer/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_performer_index') }}">back to list</a>
-
-    {{ include('performer/_delete_form.html.twig') }}
+{{ include("performer/_delete_form.html.twig") }}
 {% endblock %}
