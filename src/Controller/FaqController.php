@@ -44,6 +44,7 @@ class FaqController extends AbstractController
         return $this->renderForm('faq/new.html.twig', [
             'faq' => $faq,
             'form' => $form,
+            'festival' => $festival
         ]);
     }
 
@@ -63,6 +64,7 @@ class FaqController extends AbstractController
         return $this->renderForm('faq/edit.html.twig', [
             'faq' => $faq,
             'form' => $form,
+            'festival' => $festival
         ]);
     }
 
