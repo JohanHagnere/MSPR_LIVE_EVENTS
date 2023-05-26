@@ -1,9 +1,8 @@
 
 /* /show */
 
-.picture-intro{
-    diplay: flex;
-}
+ 
+
 .blurry-image{
     filter: blur(8px);
     -webkit-filter: blur(8px);
@@ -16,15 +15,44 @@
 }
 .perf-image{
     position: absolute;
+    top: 13%;
+     left: 10%;
     width: 80%;
 }
 .contain-performer{
     display: flex;
     background-color: white;
-    border-radius: 4rem;
-    padding: 2rem;
+    border-radius: 2rem;
+    padding: 2rem;    position: absolute;
+    top: 65%;
+    flex-direction: column;
+
 }
 .container-localisation {
     margin: auto;
     width: 85%;
   }
+
+  .texte-color{
+    color: rgb(76, 100, 206);
+    display: flex;
+  }
+
+  .button-perf{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+.button-css{
+    background-color:white;
+    color:  rgb(76, 100, 206);
+    border-radius: 0.5rem;
+    padding: 0.3rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0.3rem;
+    width: 50%;
+    text-decoration:none;
+}
