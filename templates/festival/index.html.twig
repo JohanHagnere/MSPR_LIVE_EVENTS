@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %} {% block extra_stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/festival.css') }}" /> {% endblock %}
+{% block title %}Festival{% endblock %} {% block body %}
+
+<main class="container">
+  <h1>Nos Festivals</h1>
+
+  {% for festival in festivals %}
+
+  <div class="contain-festival">
+    <a
+      class="card-festival"
+      href="
+      {% if is_granted('ROLE_ADMIN') %}
+      {{ path('app_administration', { festivalId: festival.id }) }}
+      {% else %}
+      {{ path('app_festival_show', { id: festival.id }) }}
+      {% endif %}
+      "
+    >
+      <div class="festival">
+        <img src="{{ festival.img }}" alt="Photo du festival" />
+
+        <div class="contain-info-festival">
+          <h2>{{ festival.name }}</h2>
+          <p>
+            Du
+            {{ festival.beginDate ? festival.beginDate|date('d-m-Y') : '' }}
+            {{ festival.endDate ? festival.endDate|date('d-m-Y') : '' }}
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</main>
+
+{% endblock %}

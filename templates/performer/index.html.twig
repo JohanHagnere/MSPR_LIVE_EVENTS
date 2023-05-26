@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %} {% block extra_stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/_performer.css') }}" />
+{% endblock %} {% block title %}Programmation{% endblock %} {%block body %}
+<h1 class="titre">Programmation</h1>
+
+<section class="pictureIntro">
+  {% for performer in performers %} {% for concert in performer.concerts %} {%
+  if concert.scene.festival == festival %}
+  <a
+    href="{{
+      path('app_performer_delete', { id: performer.id, festival: festival.id })
+    }}"
+  >
+    <div class="block">
+      <img class="image" src={{ asset('images/'~performer.image) }}
+      alt="photoArtiste">
+      <div class="text">
+        <p>{{ concert.concertDate|date("l d M y")}}</p>
+        <h1>{{ performer.name }}</h1>
+        <p>{{ concert.scene.name }}</p>
+      </div>
+    </div>
+  </a>
+  {% endif %} {% endfor %} {% endfor %} {% if is_granted('ROLE_ADMIN') %}
+  <a href="{{ path('app_performer_new') }}">Create new</a>
+  {% endif %} {% endblock %}
+</section>
