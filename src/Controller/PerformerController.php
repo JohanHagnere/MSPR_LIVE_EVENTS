@@ -15,8 +15,9 @@ use App\Repository\FestivalRepository;
 use App\Repository\SceneRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use App\Entity\Festival;
+
 #[Route('{festival}/performer')]
-#[Entity('festival, expr:repository.find(festival)')]
+
 class PerformerController extends AbstractController
 {
     #[Route('/', name: 'app_performer_index', methods: ['GET'])]
@@ -51,45 +52,50 @@ class PerformerController extends AbstractController
             'form' => $form,
         ]);
     }
-
     #[Route('/{id}', name: 'app_performer_show', methods: ['GET'])]
+    #[Entity('festival, expr:repository.find(festival)')]
     public function show(Performer $performer, Festival $festival): Response
     {
         return $this->render('performer/show.html.twig', [
             'performer' => $performer,
             'festival' => $festival,
-          
+
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_performer_edit', methods: ['GET', 'POST'])]
+    #[Entity('festival, expr:repository.find(festival)')]
     #[IsGranted("ROLE_ADMIN")]
     public function edit(Request $request, Performer $performer, Festival $festival, PerformerRepository $performerRepository): Response
     {
         $form = $this->createForm(PerformerType::class, $performer);
         $form->handleRequest($request);
+        $festivalId = $festival->getId();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $performerRepository->save($performer, true);
 
-            return $this->redirectToRoute('app_performer_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_administration', ['festivalId' => $festivalId], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('performer/edit.html.twig', [
             'performer' => $performer,
             'festival' => $festival,
+            'festivalId' => $festivalId,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_performer_delete', methods: ['POST'])]
+    #[Entity('festival, expr:repository.find(festival)')]
     #[IsGranted("ROLE_ADMIN")]
-    public function delete(Request $request, Performer $performer, PerformerRepository $performerRepository): Response
+    public function delete(Request $request, Performer $performer, PerformerRepository $performerRepository, Festival $festival): Response
     {
+        $festivalId = $festival->getId();
         if ($this->isCsrfTokenValid('delete' . $performer->getId(), $request->request->get('_token'))) {
             $performerRepository->remove($performer, true);
         }
 
-        return $this->redirectToRoute('app_performer_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_administration', ['festivalId' => $festivalId], Response::HTTP_SEE_OTHER);
     }
 }

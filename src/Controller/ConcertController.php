@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Concert;
+use App\Entity\Festival;
 use App\Form\ConcertType;
 use App\Repository\ConcertRepository;
+use App\Repository\FestivalRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +35,7 @@ class ConcertController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $concertRepository->save($concert, true);
 
-            return $this->redirectToRoute('app_concert_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_administration', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('concert/new.html.twig', [

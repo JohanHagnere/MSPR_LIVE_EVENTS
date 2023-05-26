@@ -74,7 +74,7 @@ class Performer
         return $this;
     }
 
-   
+
     public function getConcerts(): Collection
     {
         return $this->concerts;
@@ -100,5 +100,10 @@ class Performer
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }
