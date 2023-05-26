@@ -20,7 +20,6 @@ class AdministrationController extends AbstractController
         $festival = $festivalRepository->find($festivalId);
         $concerts = $concertRepository->findByFestival($festival);
         $performers = $performerRepository->findAll();
-        dump($performers);
 
         return $this->render('administration/index.html.twig', [
             'festival' => $festival,
