@@ -1,11 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}New Faq{% endblock %} {% block
+body %}
+<h1>Create new Faq</h1>
 
-{% block title %}New Faq{% endblock %}
+{{ include("faq/_form.html.twig") }}
 
-{% block body %}
-    <h1>Create new Faq</h1>
-
-    {{ include('faq/_form.html.twig') }}
-
-    <a href="{{ path('app_faq_index_by_festival',{'id':faq.festival.id}) }}">back to list</a>
+<a href="{{ path('app_faq_index_by_festival', { festival: festival.id }) }}"
+  >back to list</a
+>
 {% endblock %}

@@ -22,7 +22,7 @@
     <div class="centrertext">
     <br>
     {% if is_granted('ROLE_ADMIN') %} 
-        <a href="{{ path('app_faq_new', {'id': festival.id}) }}">Ajouter une question/réponse</a>
+        <a href="{{ path('app_faq_new', {'festival': festival.id}) }}">Ajouter une question/réponse</a>
         
         {% endif %} 
     
@@ -37,8 +37,10 @@
                         <p class="question">{{ faq.question }}</p>
                          {# <a href="{{ path('app_faq_show', {'id': faq.id}) }}">show</a> #}
                 {% if is_granted('ROLE_ADMIN') %}  
-                 <a href="{{ path('app_faq_edit', {'id': faq.id}) }}">éditer</a>
-                 <a href="{{ path('app_faq_edit', {'id': faq.id}) }}">supprimer</a>
+                 <a href="{{ path('app_faq_edit', {'id': faq.id, festival: festival.id}) }}">éditer</a>
+
+                 {{ include('faq/_delete_form.html.twig') }}
+
                   {% endif %}  
                     </div>
                     <div class="laCroix">
