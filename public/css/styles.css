@@ -104,3 +104,13 @@ p {
 /* .html {
   font-size: calc(15px + 0.390625vw) !important;
 } */
+
+button.delete {
+  border: none;
+  background: initial;
+  display: inline;
+}
+
+a + form {
+  display: inline;
+}
