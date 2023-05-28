@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ConcertRepository;
+use App\Repository\FacilityRepository;
 use App\Repository\FestivalRepository;
 use App\Repository\PerformerRepository;
 use App\Repository\SceneRepository;
@@ -14,19 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdministrationController extends AbstractController
 {
     #[Route('/administration/{festivalId}', name: 'app_administration')]
-    public function index(FestivalRepository $festivalRepository, ConcertRepository $concertRepository, $festivalId, SceneRepository $sceneRepository, PerformerRepository $performerRepository): Response
+    public function index(FestivalRepository $festivalRepository, ConcertRepository $concertRepository, $festivalId, PerformerRepository $performerRepository, FacilityRepository $facilityRepository): Response
     {
-
         $festival = $festivalRepository->find($festivalId);
+        // dd($festival);
         $concerts = $concertRepository->findByFestival($festival);
         $performers = $performerRepository->findAll();
-        dump($performers);
+        $facilities = $facilityRepository->findByFestival($festival);
 
         return $this->render('administration/index.html.twig', [
             'festival' => $festival,
             'concerts' => $concerts,
             'performers' => $performers,
             'festivalId' => $festivalId,
+            'facilities' => $facilities
         ]);
     }
 }
