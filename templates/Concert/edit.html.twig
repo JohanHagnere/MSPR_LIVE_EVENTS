@@ -1,13 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}Edit Concert{% endblock %} {%
+block body %}
+<h1>Edit Concert</h1>
 
-{% block title %}Edit Concert{% endblock %}
+{{ include("concert/_form.html.twig", { button_label: "Update" }) }}
 
-{% block body %}
-    <h1>Edit Concert</h1>
+<a href="{{ path('app_concert_index', { festival: festival.id }) }}"
+  >back to list</a
+>
 
-    {{ include('concert/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_concert_index') }}">back to list</a>
-
-    {{ include('concert/_delete_form.html.twig') }}
+{{ include("concert/_delete_form.html.twig") }}
 {% endblock %}
