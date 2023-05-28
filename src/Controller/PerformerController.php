@@ -52,7 +52,6 @@ class PerformerController extends AbstractController
         ]);
     }
     #[Route('/{id}', name: 'app_performer_show', methods: ['GET'])]
-    #[Entity('festival, expr:repository.find(festival)')]
     public function show(Performer $performer, Festival $festival): Response
     {
         return $this->render('performer/show.html.twig', [
@@ -67,19 +66,17 @@ class PerformerController extends AbstractController
     {
         $form = $this->createForm(PerformerType::class, $performer);
         $form->handleRequest($request);
-        $festivalId = $festival->getId();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $performerRepository->save($performer, true);
 
-            return $this->redirectToRoute('app_administration', ['festivalId' => $festivalId], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_administration', ['festivalId' => $festival->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('performer/edit.html.twig', [
             'performer' => $performer,
-            'festival' => $festival,
-            'festivalId' => $festivalId,
             'form' => $form,
+            'festival' => $festival,
         ]);
     }
 
@@ -87,11 +84,10 @@ class PerformerController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function delete(Request $request, Performer $performer, PerformerRepository $performerRepository, Festival $festival): Response
     {
-        $festivalId = $festival->getId();
         if ($this->isCsrfTokenValid('delete' . $performer->getId(), $request->request->get('_token'))) {
             $performerRepository->remove($performer, true);
         }
 
-        return $this->redirectToRoute('app_administration', ['festivalId' => $festivalId], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_administration', ['festivalId' => $festival->getId()], Response::HTTP_SEE_OTHER);
     }
 }

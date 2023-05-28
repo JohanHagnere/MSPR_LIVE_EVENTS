@@ -61,7 +61,6 @@ class ConcertController extends AbstractController
     {
         $form = $this->createForm(ConcertType::class, $concert);
         $form->handleRequest($request);
-        // $festival = $request->attributes->get('festival');
         dump($festival);
         if ($form->isSubmitted() && $form->isValid()) {
             $concertRepository->save($concert, true);

@@ -4,7 +4,7 @@ block body %}
 
 {{ include("concert/_form.html.twig", { button_label: "Update" }) }}
 
-<a href="{{ path('app_concert_index', { festival: festival.id }) }}"
+<a href="{{ path('app_administration', { festivalId: festival.id }) }}"
   >back to list</a
 >
 

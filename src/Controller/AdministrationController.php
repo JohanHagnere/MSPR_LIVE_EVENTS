@@ -18,8 +18,8 @@ class AdministrationController extends AbstractController
     public function index(FestivalRepository $festivalRepository, ConcertRepository $concertRepository, $festivalId, PerformerRepository $performerRepository, FacilityRepository $facilityRepository): Response
     {
         $festival = $festivalRepository->find($festivalId);
-        // dd($festival);
         $concerts = $concertRepository->findByFestival($festival);
+        // dd($concerts);
         $performers = $performerRepository->findAll();
         $facilities = $facilityRepository->findByFestival($festival);
 
