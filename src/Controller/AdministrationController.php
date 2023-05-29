@@ -24,6 +24,7 @@ class AdministrationController extends AbstractController
         $performers = $performerRepository->findAll();
         $facilities = $facilityRepository->findByFestival($festival);
 
+
         return $this->render('administration/index.html.twig', [
             'festival' => $festival,
             'festivals' => $festivals,

@@ -1,9 +1,6 @@
 
 /* /show */
 
-.picture-intro{
-    diplay: flex;
-}
 .blurry-image{
     filter: blur(8px);
     -webkit-filter: blur(8px);
@@ -27,4 +24,53 @@
 .container-localisation {
     margin: auto;
     width: 85%;
+}
+/* programmation */
+.pictureIntro{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 30px;
+    margin-top: 30px;
+}
+
+.block {
+    display: flex;
+    flex-direction: row;
+    gap : 1rem;    
+    align-items: flex-start;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  .image {
+    flex-basis: 1;
+    width: 20%;
+    height: 20%;
+    border-radius: 10px;
+    margin-top: 8px;
+  }
+  
+  .text {
+    flex-basis: 3;
+  }
+
+  a {
+
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    gap : 1rem;    
+    align-items: flex-start;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    width: 90%;
+  }
+
+  .titre {
+    margin-top: 5%;
+    margin-left: 12%;
   }
