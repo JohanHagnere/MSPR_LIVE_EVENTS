@@ -101,11 +101,13 @@ window.initMap = initMap;
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfh6E4gClmwOAfjx9hD9WrzmRWNWff1ko&callback=initMap&v=weekly" defer></script>
 
 		<div class="footer-menu">
-			<a href="{{ path('app_festival_show', {'id': 1}) }}" class="footer-menu-item">
+			<a href="{{ path('app_festival_show', {'id': festivalId}) }}" class="footer-menu-item">
 				<i class="fas fa-home"></i>
 				<span>Accueil</span>
 			</a>
-			<a href="{{ path('app_festival_show', {'id': 2}) }}" class="footer-menu-item">
+
+			{# <a href="{{ path('app_festival_show', {'id': festivalId}) }}" class="footer-menu-item"> #}
+			<a href="/" class="footer-menu-item">
 				<i class="fas fa-calendar"></i>
 				<span>Programme</span>
 			</a>
