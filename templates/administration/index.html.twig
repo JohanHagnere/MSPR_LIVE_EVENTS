@@ -28,6 +28,30 @@ block body %}
       {% endfor %}
     </ul>
   </section>
+  <section class="scene">
+    <h2>
+      Scènes:
+      <a href="{{ path('app_scene_new', { festival: festival.id }) }}">
+        <i class="fa-solid fa-plus"></i>
+      </a>
+    </h2>
+    <ul>
+      {% for scene in scenes %}
+      <li>
+        Id: <span>{{ scene.id }}</span> - Scène :
+        <span>{{ scene.name }}</span>
+        <a
+          href="{{
+            path('app_scene_edit', { id: scene.id, festival: festival.id })
+          }}"
+        >
+          <i class="fa-regular fa-note-sticky"></i>
+        </a>
+        {{ include("scene/_delete_form.html.twig") }}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
   <section class="performer">
     <h2>
       Performers:

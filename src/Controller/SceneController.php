@@ -85,6 +85,6 @@ class SceneController extends AbstractController
             $sceneRepository->remove($scene, true);
         }
 
-        return $this->redirectToRoute('app_administration', ['festivalId' => $festival], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_administration', ['festivalId' => $festival->getId()], Response::HTTP_SEE_OTHER);
     }
 }

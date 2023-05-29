@@ -15,11 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdministrationController extends AbstractController
 {
     #[Route('/administration/{festivalId}', name: 'app_administration')]
-    public function index(FestivalRepository $festivalRepository, ConcertRepository $concertRepository, $festivalId, PerformerRepository $performerRepository, FacilityRepository $facilityRepository): Response
+    public function index(FestivalRepository $festivalRepository, ConcertRepository $concertRepository, $festivalId, PerformerRepository $performerRepository, SceneRepository $sceneRepository, FacilityRepository $facilityRepository): Response
     {
         $festival = $festivalRepository->find($festivalId);
         $concerts = $concertRepository->findByFestival($festival);
-        // dd($concerts);
+        $scenes = $sceneRepository->findByFestival($festival);
         $performers = $performerRepository->findAll();
         $facilities = $facilityRepository->findByFestival($festival);
 
@@ -28,7 +28,8 @@ class AdministrationController extends AbstractController
             'concerts' => $concerts,
             'performers' => $performers,
             'festivalId' => $festivalId,
-            'facilities' => $facilities
+            'facilities' => $facilities,
+            'scenes' => $scenes
         ]);
     }
 }
