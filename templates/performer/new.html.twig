@@ -1,11 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}New Performer{% endblock %} {%
+block body %}
+<h1>Create new Performer</h1>
 
-{% block title %}New Performer{% endblock %}
+{{ include("performer/_form.html.twig") }}
 
-{% block body %}
-    <h1>Create new Performer</h1>
-
-    {{ include('performer/_form.html.twig') }}
-
-    <a href="{{ path('app_performer_index') }}">back to list</a>
+<a href="{{ path('app_administration', { festivalId: festival.id }) }}"
+  >back to list</a
+>
 {% endblock %}

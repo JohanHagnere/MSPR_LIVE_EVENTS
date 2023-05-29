@@ -39,28 +39,25 @@ class FestivalRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Festival[] Returns an array of Festival objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('f.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Festival[] Returns an array of Festival objects
+    //     */
+    // public function findByFestival($festival): array
+    // {
+    //     return $this->createQueryBuilder('f')
+    //         ->andWhere('f.festival = :festival')
+    //         ->setParameter('festival', $festival)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
-//    public function findOneBySomeField($value): ?Festival
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Festival
+    //    {
+    //        return $this->createQueryBuilder('f')
+    //            ->andWhere('f.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

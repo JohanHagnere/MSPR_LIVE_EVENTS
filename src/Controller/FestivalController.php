@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity as ConfigurationEntity;
 
 #[Route('/festival')]
 class FestivalController extends AbstractController
@@ -31,9 +32,12 @@ class FestivalController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+            $bounds = $formData->getBounds();
+            $festival->setBounds($bounds);
             $festivalRepository->save($festival, true);
 
-            return $this->redirectToRoute('app_festival_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_administration', ['festivalId' => $festival->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('festival/new.html.twig', [
