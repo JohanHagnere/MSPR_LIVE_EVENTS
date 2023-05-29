@@ -47,8 +47,14 @@ class FestivalController extends AbstractController
     #[Route('/{id}', name: 'app_festival_show', methods: ['GET'])]
     public function show(Request $request, FestivalRepository $festivalRepository, MessageRepository $messageRepository): Response
     {
-        // $id = $request->attributes->get('id');
-        $festival = $festivalRepository->find(1);
+        $id = $request->attributes->get('id');
+        $festival = $festivalRepository->find($id);
+        $festivalId = $festival->getId();
+
+        if (!$festival) {
+            throw $this->createNotFoundException('Festival not found');
+        }
+
         $newLocation = ['longitude' => $festival->getLongitude(), 'latitude' => $festival->getLatitude(), 'bounds' => $festival->getBounds()];
 
         $messages = $messageRepository->findAll(['type' => ['urgent', 'important']]);
@@ -68,7 +74,8 @@ class FestivalController extends AbstractController
             'festival' => $festival,
             'messages' => $messageArray,
             'festivalLocation' => json_encode($newLocation),
-
+            'festivalId' => $festivalId,
+       
         ]);
     }
 

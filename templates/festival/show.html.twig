@@ -4,12 +4,8 @@
 	<script src="{{ asset('scripts/message.js') }}"></script>
 
 	<script>
-		const messages = {{ messages | json_encode | raw }};
+		const messages = {{ messages | json_encode | raw }}
 	</script>
-	<script>
-		src = "https://code.jquery.com/jquery-3.6.0.min.js" >
-	</script>
-
 
 {% endblock %}
 
@@ -25,12 +21,11 @@
 {% block body %}
 	<main>
 		<div id="messageParent" style="display: inline-block; position: relative;">
-			<h1 id="messageContent" class="{{messages[0].type}}" style="display: inline-block;">{{messages[0].content}}</h1>
+			<h1 id="messageContent" class={{messages[0].type}}>{{messages[0].content}}</h1>
 			<button id="toggleBtn">
 				<i class="fa-solid fa-arrow-right"></i>
 			</button>
 		</div>
-
 
 		<div class="programme">
 			<h1>AFFICHAGE DES CONCERT
@@ -52,65 +47,65 @@
 		<div id="homepage-map" style="height: 500px;"></div>
 
 		<script>
-		  const festivalLocation = JSON.parse("{{ festivalLocation | e('js') }}");
-			function initMap() {
+			const festivalLocation = JSON.parse("{{ festivalLocation | e('js') }}");
+function initMap() {
 const festival = {
 lat: festivalLocation.latitude,
-lng: festivalLocation.longitude,
+lng: festivalLocation.longitude
 };
 
 // Création de la carte
 const map = new google.maps.Map(document.getElementById("homepage-map"), {
-	zoom: 16,
-	center: festival,
-	styles: [
-	{
-		featureType: "poi", // Points of interest
-		stylers: [
-		{
-			visibility: "off"
-		}
-	] // les masquer
-	}, {
-	featureType: "transit", // Transports en commun
-	stylers: [
-	{
-		visibility: "off"
-	}
-	] // les masquer
-	}
-	],
-	disableDefaultUI: true, // Désactive les éléments d'interface par défaut de Google Maps
-	gestureHandling: "none"
-	});
+zoom: 16,
+center: festival,
+styles: [
+{
+featureType: "poi", // Points of interest
+stylers: [
+{
+visibility: "off"
+}
+] // les masquer
+}, {
+featureType: "transit", // Transports en commun
+stylers: [
+{
+visibility: "off"
+}
+] // les masquer
+}
+],
+disableDefaultUI: true, // Désactive les éléments d'interface par défaut de Google Maps
+gestureHandling: "none"
+});
 
-   const festivalBounds = festivalLocation.bounds;
-    const festivalZone = new google.maps.Polygon({
-      strokeColor: "grey",
-      strokeOpacity: 0.8,
-      strokeWeight: 3,
-      fillColor: "grey",
-      fillOpacity: 0.15,
-      map,
-      paths: festivalBounds,
-    });
+const festivalBounds = festivalLocation.bounds;
+const festivalZone = new google.maps.Polygon({
+strokeColor: "grey",
+strokeOpacity: 0.8,
+strokeWeight: 3,
+fillColor: "grey",
+fillOpacity: 0.15,
+map,
+paths: festivalBounds
+});
 
 // Gestionnaire d'événements pour le clic sur la carte
-	map.addListener("click", function (event) {
-	window.location.href = "/map/festival/"; // Redirection vers la page souhaitée
-	});
+map.addListener("click", function (event) {
+window.location.href = "/map/festival/"; // Redirection vers la page souhaitée
+});
 }
 
 window.initMap = initMap;
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfh6E4gClmwOAfjx9hD9WrzmRWNWff1ko&callback=initMap&v=weekly" defer></script>
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfh6E4gClmwOAfjx9hD9WrzmRWNWff1ko&callback=initMap&v=weekly" defer></script>
 
 		<div class="footer-menu">
-			<a href="/festival/1" class="footer-menu-item">
+			<a href="{{ path('app_festival_show', {'id': 1}) }}" class="footer-menu-item">
 				<i class="fas fa-home"></i>
 				<span>Accueil</span>
 			</a>
-			<a href="/festival/2" class="footer-menu-item">
+			<a href="{{ path('app_festival_show', {'id': 2}) }}" class="footer-menu-item">
 				<i class="fas fa-calendar"></i>
 				<span>Programme</span>
 			</a>
@@ -118,26 +113,27 @@ window.initMap = initMap;
 				<i class="fas fa-map"></i>
 				<span>Carte</span>
 			</a>
-			<a href="/festival" class="footer-menu-item">
+			<a href="{{ path('app_faq_index_by_festival', {'festival': festivalId}) }}" class="footer-menu-item">
 				<i class="fas fa-question-circle"></i>
 				<span>FAQ</span>
 			</a>
+
 			<div class="menu-plus">
-			<i class="fas fa-ellipsis-h" style="font-size: 1.5em; letter-spacing: 10px;"></i>
-			<span></span>
-			<ul class="sub-menu">
-				<a href="/">Réseaux</a>
-				<a href="/">Partenaires</a>
-				{% if is_granted('ROLE_ADMIN') %}
-				<a href="{{ path('app_logout') }}">Se déconnecter</a>
-				{% endif %}
-			</ul>
+				<i class="fas fa-ellipsis-h" style="font-size: 1.5em; letter-spacing: 10px;"></i>
+				<span></span>
+				<ul class="sub-menu">
+					<a href="/">Réseaux</a>
+					<a href="/">Partenaires</a>
+					{% if is_granted('ROLE_ADMIN') %}
+						<a href="{{ path('app_logout') }}">Se déconnecter</a>
+					{% endif %}
+				</ul>
 			</div>
 
 		</div>
 		<script>
-			var currentUrl = window.location.href
-var menuItems = document.querySelectorAll('.footer-menu-item');
+			let currentUrl = window.location.href
+let menuItems = document.querySelectorAll('.footer-menu-item');
 
 menuItems.forEach(function (item) {
 if (item.href === currentUrl) {
