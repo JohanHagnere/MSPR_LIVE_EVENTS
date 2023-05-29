@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Json;
 
 #[ORM\Entity(repositoryClass: FestivalRepository::class)]
 class Festival
@@ -41,7 +43,12 @@ class Festival
     private ?float $latitude = null;
 
     #[ORM\Column]
-    private array $bounds = [];
+    /**
+     * @ORM\Column(type="json")
+     * @Assert\NotBlank
+     * @Json
+     */
+    private ?string $bounds = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $img = null;
@@ -215,12 +222,12 @@ class Festival
         return $this;
     }
 
-    public function getBounds(): array
+    public function getBounds(): string
     {
         return $this->bounds;
     }
 
-    public function setBounds(array $bounds): self
+    public function setBounds(string $bounds): self
     {
         $this->bounds = $bounds;
 

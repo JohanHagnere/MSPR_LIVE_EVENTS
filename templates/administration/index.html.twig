@@ -3,6 +3,35 @@ block body %}
 <main>
   <h1>{{ festival.name }}</h1>
 
+  <section class="festival">
+    <h2>
+      Festivals:
+      <a href="{{ path('app_festival_new', { festival: festival.id }) }}">
+        <i class="fa-solid fa-plus"></i>
+      </a>
+    </h2>
+    <ul>
+      {% for festival in festivals %}
+      <li>
+        Id: <span>{{ festival.id }}</span> - Nom :
+        <span>{{ festival.name }}</span> - Date du festival:
+        <span>{{ festival.beginDate|date('d/m/Y') }}</span> -
+        <span>{{ festival.endDate|date('d/m/Y ') }}</span>
+        <a
+          href="{{
+            path('app_festival_edit', {
+              id: festival.id,
+              festival: festival.id
+            })
+          }}"
+        >
+          <i class="fa-regular fa-note-sticky"></i>
+        </a>
+        {{ include("festival/_delete_form.html.twig") }}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
   <section class="concert">
     <h2>
       Concerts:
@@ -15,7 +44,7 @@ block body %}
       <li>
         Id: <span>{{ concert.id }}</span> - Artiste :
         <span>{{ concert.performer }}</span> - Date du concert:
-        <span>{{ concert.concertDate|date('d/m/Y H:i:s') }}</span>
+        <span>{{ concert.concertDate|date('d/m/Y') }}</span>
         <a
           href="{{
             path('app_concert_edit', { id: concert.id, festival: festival.id })
@@ -62,7 +91,7 @@ block body %}
     <ul>
       {% for performer in performers %}
       <li>
-        Id: <span>{{ performer.id }}</span> Name:
+        Id: <span>{{ performer.id }}</span> Nom:
         <span>{{ performer.name }}</span>
         <a
           href="{{
