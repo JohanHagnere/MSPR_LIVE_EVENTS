@@ -119,8 +119,7 @@ block body %}
       // Mettez à jour le tableau `markers` avec les nouveaux marqueurs créés
       markers[i] = marker;
     }
-    
-    
+
     for (var i = 0; i < categories.length; i++) {
       let categoryUppercase = capitalizeFirstLetter(markers[i].category);
 
@@ -183,7 +182,9 @@ block body %}
   window.initMap = initMap;
 </script>
 <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfh6E4gClmwOAfjx9hD9WrzmRWNWff1ko&callback=initMap&v=weekly"
+  src="https://maps.googleapis.com/maps/api/js?key={{
+    google_api_key
+  }}&callback=initMap&v=weekly"
   defer
 ></script>
 {% endblock %}
